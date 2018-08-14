@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
         <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-        <title>Steamer APP</title>
+        <title>Hello APP</title>
         <link rel="stylesheet" type="text/css" href="../css/api.css" />
         <style>
             html,
@@ -115,7 +115,7 @@
             }
 
             .header.home {
-                background: #f5745a;
+                background: #d43d3d;
             }
 
             .header.home .top-menu>div {
@@ -234,14 +234,15 @@
     </head>
 
     <body>
-        <header id="header" >
-            <div class="header home active" >
+        <header id="header">
+            <div class="header home active">
                 <div class="top-menu"></div>
+                <!-- <div class="add_btn btn" tapmode onclick="fnMore()"></div> -->
             </div>
-            <!-- <div class="header video">
+            <div class="header video">
                 <div class="top-menu"></div>
                 <div class="search-video-btn" tapmode onclick="fnSearch();"></div>
-            </div> -->
+            </div>
             <div class="header topic gambit_head">
                 <div class="gambit_login" tapmode onclick="fnLogin()"></div>
                 <div class="gambit_menu gambit_recommend" id="top-menu">
@@ -255,8 +256,8 @@
         <section class="content"></section>
         <footer id="footer" class="footer">
             <div class="menu home active " tapmode="active" onclick="fnChange(0)">首页</div>
-            <div class="menu video" tapmode="active" onclick="fnChange(1)">课程</div>
-            <div class="menu gambit" tapmode="active" onclick="fnChange(2)">练习</div>
+            <div class="menu video" tapmode="active" onclick="fnChange(1)">视频</div>
+            <div class="menu gambit" tapmode="active" onclick="fnChange(2)">话题</div>
             <div class="menu my" tapmode="active" onclick="fnChange(3)">我的</div>
         </footer>
     </body>
@@ -304,8 +305,7 @@
             navigationBar = api.require('navigationBar');
         };
 
-        // var frameNames = ['home_group', 'video_group', 'topics_group', 'my_frame'];
-        var frameNames = ['home_group','topics_group', 'my_frame'];
+        var frameNames = ['home_group', 'video_group', 'topics_group', 'my_frame'];
 
         function fnChange(index) {
             for (var i = 0; i < menus.length; i++) {
@@ -368,14 +368,13 @@
         var home_group = {
                 item: [{
                     title: '推荐',
-                    bg: '#FFD700',
+                    bg: '#d43d3d',
                 }, {
                     title: '考讯',
-                    bg: '#FFD700',
-                }
-              ],
+                    bg: '#d43d3d',
+                }],
                 font: {
-                    color: '#1E1E1E',
+                    color: '#efb7b7',
                     colorSelected: '#fff',
                     size: 15,
                     sizeSelected: 15
@@ -384,9 +383,6 @@
             video_group = {
                 item: [{
                     title: '推荐',
-                    bg: '#fff',
-                }, {
-                    title: '逗比剧',
                     bg: '#fff',
                 }],
                 font: {
