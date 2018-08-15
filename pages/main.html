@@ -1,537 +1,487 @@
 <!DOCTYPE HTML>
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-        <title>Steamer APP</title>
-        <link rel="stylesheet" type="text/css" href="../css/api.css" />
-        <style>
-            html,
-            body {
-                height: 100%;
-                display: flex;
-                display: -webkit-flex;
-                display: -webkit-box;
-                flex-flow: column;
-                -webkit-flex-flow: column;
-                -webkit-box-orient: vertical;
-            }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>教师编</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
 
-            .gambit_head {
-                width: 100%;
-                height: 43px;
-                display: flex;
-                display: -webkit-flex;
-                display: -webkit-box;
-                flex-flow: row;
-                -webkit-flex-flow: row;
-                -webkit-box-orient: horizontal;
-                background-color: #fff;
-                position: relative;
-                box-sizing: border-box;
-                padding-left: 43px;
-                padding-right: 43px;
-                border-bottom: 1px solid #d8d8d8;
-            }
+    html,
+    body {
+        height: 100%;
+        display: flex;
+        display: -webkit-flex;
+        display: -webkit-box;
+        flex-flow: column;
+        -webkit-flex-flow: column;
+        -webkit-box-orient: vertical;
+    }
 
-            .gambit_menu {
-                flex: 1;
-                -webkit-flex: 1;
-                -webkit-box-flex: 1;
-                height: 43px;
-                line-height: 43px;
-                box-sizing: border-box;
-                color: #222;
-                font-size: 15px;
-            }
+    header {
+        position: relative;
+        width: 100%;
+        height: 50px;
+        background-color: #66ccff;
+    }
 
-            .gambit_recommend {
-                text-align: center;
-            }
+    header .right {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100px;
+        height: 50px;
+    }
 
-            .gambit_recommend .list {
-                height: 40px;
-                display: inline-block;
-            }
+    header .right .arrow {
+        position: absolute;
+        bottom: 21px;
+        right: 11px;
+        width: 13px;
+        height: 8px;
+        background: url(../image/arrow_down.png);
+        background-size: 13px 8px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        -webkit-transition: 200ms;
+        transition: 200ms;
+    }
 
-            .gambit_recommend .em2 {
-                margin-left: 50px;
-            }
+    header .right .arrow.active {
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
 
-            .gambit_login {
-                width: 43px;
-                height: 100%;
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                background-image: url(../image/gambit/icn_login.png);
-                background-size: 16px 19px;
-                background-position: center center;
-                background-repeat: no-repeat;
-            }
+    header .right .city {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 50px;
+        padding-left: 27px;
+        box-sizing: border-box;
+        line-height: 50px;
+        font-size: 14px;
+        /*color: #fff;*/
+        text-align: left;
+    }
 
-            .gambit_seek {
-                width: 43px;
-                height: 100%;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                background-image: url(../image/gambit/icn_seek.png);
-                background-size: 17px 17px;
-                background-position: center center;
-                background-repeat: no-repeat;
-            }
+    header .center {
+        position: center;
+        width: 100%;
+        height: 50px;
+        align-content: center;
+        background: url(../image/home_title.png);
+        background-size: 74px 19px;
+        background-position: center center;
+        background-repeat: no-repeat;
 
-            .header {
-                height: 43px;
-                width: 100%;
-                display: none;
-                line-height: 43px;
-            }
+    }
 
-            .header.active {
-                display: block;
-            }
+    header .left {
+        position: absolute;
+        padding-top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 50px;
+    }
 
-            .top-menu {
-                padding: 0 43px 0 8px;
-            }
-            /*按钮*/
+    nav {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-flex-flow: row;
+        flex-flow: row;
+        position: relative;
+        width: 100%;
+        height: 40px;
+        background-color: #F8F8FF;
+    }
 
-            .btn {
-                height: 40px;
-                width: 35px;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-            }
-            /*首页头部导航*/
-            /*字体颜色*/
+    nav .menu {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 13px;
+        /*color: #f973b8;*/
+        text-align: left;
+        padding-left: 10px;
+    }
 
-            .header.home>div.active {
-                opacity: 1;
-            }
+    nav .menu.selected {
+        font-size: 14px;
+        color: #66ccff;
+        font-weight: bolder;
+    }
 
-            .header.home {
-                background: #f5745a;
-            }
+    .footer {
+        height: 44px;
+        display: flex;
+        display: -webkit-flex;
+        display: -webkit-box;
+        flex-flow: row;
+        -webkit-flex-flow: row;
+        -webkit-box-orient: horizontal;
+        /*background-color: #f4f5f6;*/
+    }
 
-            .header.home .top-menu>div {
-                color: #fff;
-                opacity: .8;
-            }
+    .footer .home {
+        background-image: url(../image/footer/home.png);
+    }
 
-            .header.home .top-menu>div.active {
-                opacity: 1;
-            }
+    .footer .video {
+        background-image: url(../image/footer/video.png);
+    }
 
-            .add_btn {
-                background: #d43d3d url('../image/head/add.png') center center no-repeat;
-                -webkit-background-size: 38px 43px;
-                background-size: 38px 43px;
-            }
-            /*视频头部导航*/
+    .footer .gambit {
+        background-image: url(../image/footer/gambit.png);
+    }
 
-            .header.video,
-            .header.topic {
-                background-color: #fff;
-                color: #333;
-            }
+    .footer .my {
+        background-image: url(../image/footer/my.png);
+    }
 
-            .header.my {
-                height: 0;
-            }
+    .footer .home.active {
+        background-image: url(../image/footer/home_act_new.png);
+    }
 
-            .content {
-                -webkit-box-flex: 1;
-                -webkit-flex: 1;
-                flex: 1;
-            }
+    .footer .video.active {
+        background-image: url(../image/footer/video_act_new.png);
+    }
 
-            .search-video-btn {
-                width: 41px;
-                height: 43px;
-                position: absolute;
-                right: 0;
-                top: 0;
-                background: url('../image/head/sc.png') center center no-repeat;
-                -webkit-background-size: 41px 43px;
-                background-size: 41px 43px;
-            }
+    .footer .gambit.active {
+        background-image: url(../image/footer/gambit_act_new.png);
+    }
 
-            .gambit_menu>div.active {
-                border-bottom: 2px solid #d43d3d;
-            }
+    .footer .my.active {
+        background-image: url(../image/footer/my_act_new.png);
+    }
+    .footermenu {
+        flex: 1;
+        -webkit-flex: 1;
+        -webkit-box-flex: 1;
+        height: 44px;
+        box-sizing: border-box;
+        padding-bottom: 5px;
+        padding-top: 27px;
+        color: #585858;
+        font-size: 10px;
+        text-align: center;
+        background-size: 22px 22px;
+        background-position: center 5px;
+        background-repeat: no-repeat;
+    }
 
-            .content {
-                -webkit-flex: 1px;
-                flex: 1px;
-                -webkit-box-flex: 1;
-                background-color: #f4f5f6;
-            }
+    .content {
+        -webkit-flex: 1px;
+        flex: 1px;
+        -webkit-box-flex: 1;
+        background-color: #f4f5f6;
+    }
+    </style>
+</head>
 
-            .footer {
-                height: 44px;
-                display: flex;
-                display: -webkit-flex;
-                display: -webkit-box;
-                flex-flow: row;
-                -webkit-flex-flow: row;
-                -webkit-box-orient: horizontal;
-                background-color: #f4f5f6;
-            }
+<body>
+    <header id="header">
+        <div class="right" tapmode onclick="fnOpenCitySelectorFrame();">
+            <div class="arrow" id="arrow"></div>
+            <div class="city" id="city">北京市</div>
+        </div>
+        <!-- <div class="center"></div> -->
+        <div class="left" ><font style="font-size:20px; ">练习</font></div>
+    </header>
+    <nav id="nav">
+        <div class="menu selected" tapmode="selected" onclick="fnSetNavMenuIndex(0);">美术教师</div>
+        <!-- <div class="menu" tapmode="selected" onclick="fnSetNavMenuIndex(1);">食材</div> -->
+    </nav>
+    <section class="content"></section>
+    <footer id="footer" class="footer">
+        <div class="footermenu home active " tapmode="active" onclick="fnChange(0)">练习</div>
+        <div class="footermenu video" tapmode="active" onclick="fnChange(1)">课堂</div>
+        <div class="footermenu gambit" tapmode="active" onclick="fnChange(2)">发现</div>
+        <div class="footermenu my" tapmode="active" onclick="fnChange(3)">我的</div>
+    </footer>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
 
-            .menu {
-                flex: 1;
-                -webkit-flex: 1;
-                -webkit-box-flex: 1;
-                height: 44px;
-                box-sizing: border-box;
-                padding-bottom: 5px;
-                padding-top: 27px;
-                color: #585858;
-                font-size: 10px;
-                text-align: center;
-                background-size: 22px 22px;
-                background-position: center 5px;
-                background-repeat: no-repeat;
-            }
+var framesOpened = false,
+    menus, headerH, navH, bMap, city,footerH;
 
-            .footer .home {
-                background-image: url(../image/footer/home.png);
-            }
 
-            .footer .video {
-                background-image: url(../image/footer/video.png);
-            }
+apiready = function() {
 
-            .footer .gambit {
-                background-image: url(../image/footer/gambit.png);
-            }
+    // 初始化事件监听
+    initEventListenner();
 
-            .footer .my {
-                background-image: url(../image/footer/my.png);
-            }
+    // 获取当前的位置信息
+    initLocation();
 
-            .footer .home.active {
-                background-image: url(../image/footer/home_act.png);
-            }
+    var header = $api.byId('header');
+    var footer = $api.byId('footer');
+    var nav = $api.byId('nav');
 
-            .footer .video.active {
-                background-image: url(../image/footer/video_act.png);
-            }
+    // 实现沉浸式状态栏效果
+    $api.fixStatusBar(header);
 
-            .footer .gambit.active {
-                background-image: url(../image/footer/gambit_act.png);
-            }
+    // 计算header和nav元素的高度
+    headerH = $api.offset(header).h;
+    navH = $api.offset(nav).h;
+    footerH = $api.offset(footer).h;
 
-            .footer .my.active {
-                background-image: url(../image/footer/my_act.png);
-            }
-        </style>
-    </head>
+    // 获取所有的分类菜单
+    menus = $api.domAll(nav, '.menu');
 
-    <body>
-        <header id="header" >
-            <div class="header home active" >
-                <div class="top-menu"></div>
-            </div>
-            <!-- <div class="header video">
-                <div class="top-menu"></div>
-                <div class="search-video-btn" tapmode onclick="fnSearch();"></div>
-            </div> -->
-            <div class="header topic gambit_head">
-                <div class="gambit_login" tapmode onclick="fnLogin()"></div>
-                <div class="gambit_menu gambit_recommend" id="top-menu">
-                    <div class="list active" tapmode onclick="changeStyle(0)">推荐</div>
-                    <div class="list em2" tapmode onclick="changeStyle(1)">关注</div>
-                </div>
-                <div class="gambit_seek" tapmode onclick="fnOpenThemeChoose();"></div>
-            </div>
-            <div class="header my"></div>
-        </header>
-        <section class="content"></section>
-        <footer id="footer" class="footer">
-            <div class="menu home active " tapmode="active" onclick="fnChange(0)">首页</div>
-            <div class="menu video" tapmode="active" onclick="fnChange(1)">课程</div>
-            <div class="menu gambit" tapmode="active" onclick="fnChange(2)">练习</div>
-            <div class="menu my" tapmode="active" onclick="fnChange(3)">我的</div>
-        </footer>
-    </body>
-    <script type="text/javascript" src="../script/api.js"></script>
-    <script type="text/javascript">
-        apiready = function() {
-            fnInit();
-            fnChange(0);
-        };
+    // 从缓存中获取上一次选择的城市信息
+    var currentCity = $api.getStorage('currentCity');
 
-        function changeStyle(index) {
-            var topMenu = $api.byId('top-menu');
-            var divs = $api.domAll(topMenu, 'div');
-            api.setFrameGroupIndex({
-                name: frameNames[2],
-                index: index,
-                scroll: true
-            });
-            for (var i = 0; i < divs.length; i++) {
-                if (i == index) {
-                    $api.addCls(divs[i], 'active');
-                } else {
-                    $api.removeCls(divs[i], 'active');
-                }
-            }
+    // 如果获取不到，说明还没有选择城市，打开城市选择Frame，并返回
+    if (!currentCity) {
+        fnOpenCitySelectorFrame();
+        return;
+    }
+
+    // 更新界面上显示的城市名称
+    updateCityName(currentCity.name);
+
+    // 打开首页的所有Frames
+    openFrames();
+};
+
+
+function updateCityName(cityName_) {
+    city = $api.byId('city');
+    city.innerHTML = cityName_
+}
+
+function resetArrowState() {
+    var arrow = $api.byId('arrow');
+    if ($api.hasCls(arrow, 'active')) {
+        $api.removeCls(arrow, 'active');
+    }
+}
+
+function setArrowStateActive() {
+    var arrow = $api.byId('arrow');
+    if (!$api.hasCls(arrow, 'active')) {
+        $api.addCls(arrow, 'active');
+    }
+}
+
+// 初始化事件监听
+function initEventListenner() {
+    // 监听城市切换事件（自定义事件）
+    api.addEventListener({
+        name: 'cityChange'
+    }, function(ret, err) {
+        if (ret) {
+            // 更新城市名称
+            updateCityName(ret.value.currentCity.name);
+
+            // 更新箭头状态
+            resetArrowState();
+
+            // 打开商品列表等首页的Frames
+            openFrames();
         }
-        var menus, headers, headerHeight, footerHeight, headerTop;
-        var navigationBar, home_group_id, video_group_id;
+    });
 
-        function fnInit() {
-            var header = $api.byId('header');
-            var footer = $api.byId('footer');
-            menus = $api.domAll(footer, '.menu');
-            headers = $api.domAll(header, '.header');
-            footerHeight = $api.offset(footer).h;
-
-            for (var i = 0; i < headers.length; i++) {
-                $api.fixIos7Bar(headers[i]);
-            }
-
-            var offset = $api.offset(header);
-            headerHeight = offset.h;
-            headerTop = offset.t;
-
-            navigationBar = api.require('navigationBar');
-        };
-
-        // var frameNames = ['home_group', 'video_group', 'topics_group', 'my_frame'];
-        var frameNames = ['home_group','topics_group', 'my_frame'];
-
-        function fnChange(index) {
-            for (var i = 0; i < menus.length; i++) {
-                if (index == i) {
-                    $api.addCls(menus[i], 'active');
-                    $api.addCls(headers[i], 'active');
-                    switch (i) {
-                        case 3:
-                            fnOpenFrame(i, true);
-                            break;
-                        case 2:
-                            fnOpenFrameGroup(i, true);
-                            break;
-                        default:
-                            fnOpenFrameGroup(i, true);
-                            fnNavigationBar(i, true);
-                            break;
-                    }
-                } else {
-                    $api.removeCls(menus[i], 'active');
-                    $api.removeCls(headers[i], 'active');
-                    switch (i) {
-                        case 3:
-                            fnOpenFrame(i, false);
-                            break;
-                        case 2:
-                            fnOpenFrameGroup(i, false);
-                            break;
-                        default:
-                            fnOpenFrameGroup(i, false);
-                            fnNavigationBar(i, false);
-                            break;
-                    }
-                }
-            }
-        };
-
-        function fnOpenFrame(index, isOpen) {
-            if (isOpen) {
-                api.openFrame({
-                    name: frameNames[index],
-                    url: './' + frameNames[index] + '.html',
-                    bounces: false,
-                    rect: {
-                        x: 0,
-                        y: 0,
-                        w: 'auto',
-                        h: api.winHeight - footerHeight
-                    },
-                    vScrollBarEnabled:false
-                });
-            } else {
-                api.setFrameAttr({
-                    name: frameNames[index],
-                    hidden: true
+    // 拦截Android的返回键，在首页点击返回键，提示退出应用
+    api.addEventListener({
+        name: 'keyback'
+    }, function(ret, err) {
+        api.confirm({
+            title: '提示',
+            msg: '是否退出应用',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            if (ret.buttonIndex == 1) {
+                // 关闭当前的主Widget，就可以实现推出APP的效果
+                api.closeWidget({
+                    silent: true //直接退出，无需提示
                 });
             }
-        };
+        });
+    });
+}
 
-        var home_group = {
-                item: [{
-                    title: '推荐',
-                    bg: '#FFD700',
-                }, {
-                    title: '考讯',
-                    bg: '#FFD700',
-                }
-              ],
-                font: {
-                    color: '#1E1E1E',
-                    colorSelected: '#fff',
-                    size: 15,
-                    sizeSelected: 15
-                }
-            },
-            video_group = {
-                item: [{
-                    title: '推荐',
-                    bg: '#fff',
-                }, {
-                    title: '逗比剧',
-                    bg: '#fff',
-                }],
-                font: {
-                    color: '#505050',
-                    colorSelected: '#f85959',
-                    size: 15,
-                    sizeSelected: 15
-                }
-            };
+function initLocation() {
+    // 加载百度地图模块
+    bMap = api.require('bMap');
 
-        var currentIndex = 0;
+    // 获取当前经纬度
+    bMap.getLocation({
+        accuracy: '1000m', // 定位所在城市信息，不需要精准定位
+        autoStop: true, // 定位到经纬度后，立即自动停止定位服务
+        filter: 100000 // 基本无需处理位置更新的情况
+    }, function(ret, err) {
+        if (ret.status) {
+            // 根据经纬度获得城市名称
+            fnGetCityNameFromLocation(ret);
+        } else {
+            alert(err.code);
+        }
+    });
+}
 
-        function fnNavigationBar(index, isOpen) {
-            if (isOpen) {
-                currentIndex = index;
-                if (typeof window[frameNames[index] + '_id'] == 'undefined') {
-                    navigationBar.open({
-                        y: headerTop,
-                        w: api.winWidth - 50,
-                        h: headerHeight - headerTop,
-                        itemSize: {
-                            w: 60
-                        },
-                        items: window[frameNames[index]].item,
-                        font: window[frameNames[index]].font,
-                        selectedIndex: 0
-                    }, function(ret, err) {
-                        switch (ret.eventType) {
-                            case 'show':
-                                window[frameNames[currentIndex] + '_id'] = ret.id;
-                                break;
-                            case 'click':
-                                api.setFrameGroupIndex({
-                                    name: frameNames[currentIndex],
-                                    index: ret.index,
-                                    scroll: true
-                                });
-                                break;
-                        }
-                    });
-                } else {
-                    navigationBar.show({
-                        id: window[frameNames[index] + '_id']
-                    });
-                }
-            } else {
-                if (typeof window[frameNames[index] + '_id'] != 'undefined') {
-                    navigationBar.hide({
-                        id: window[frameNames[index] + '_id']
-                    });
-                }
+// 根据经纬度获得城市名称
+function fnGetCityNameFromLocation(location_) {
+    bMap.getNameFromCoords({
+        lon: location_.lon,
+        lat: location_.lat
+    }, function(ret, err) {
+        if (ret.status) {
+            // 判断当前所在的城市与上一次选择的城市是否一致
+            fnCheckCityChange(ret.city);
+        }
+    });
+}
+
+// 判断当前所在的城市与上一次选择的城市是否一致，不一致则打开城市选择Frame
+function fnCheckCityChange(cityName_) {
+    if (!city) {
+        return;
+    }
+    if (city.innerHTML != cityName_) {
+        fnOpenCitySelectorFrame();
+    }
+}
+
+// 打开城市选择Frame
+function fnOpenCitySelectorFrame() {
+    // 设置箭头状态
+    setArrowStateActive();
+
+    // 根据UI架构设计（ui-architecture.xmind），打开城市选择Frame
+    api.openFrame({
+        name: 'cityselector_frame',
+        url: './cityselector_frame.html',
+        bgColor: 'rgba(0, 0, 0, 0.8)',
+        rect: {
+            x: 0,
+            y: headerH,
+            w: 'auto', // 自动填充所在Window的宽度
+            h: 'auto' // 自动填充所在Window的高度
+        },
+        bounces: true // 打开弹动
+    });
+}
+
+// 打开商品列表FrameGroup和mini购物车Frame
+function openFrames() {
+
+    // 判断这些Frame是否已经打开
+    if (framesOpened) {
+        return;
+    }
+
+    // 构造FrameGroup中的Frame数组
+    var frames = [];
+    for (var i = 0; i < menus.length; i++) {
+        frames.push({
+            name: 'main_frame_' + i,
+            url: './main_frame.html',
+            pageParam: {
+                wareTypeIndex: i
             }
-        };
+        });
+    }
 
-        var home_group_frames = [],
-            video_group_frames = [];
-        for (var i = 0; i < home_group.item.length; i++) {
-            home_group_frames.push({
-                name: 'home_frame_' + i,
-                url: 'home_frame.html',
-                vScrollBarEnabled: false,
-                pageParam: {
-                    type: home_group.item[i].title
-                }
-            });
-        };
+    // 打开FrameGroup
+    api.openFrameGroup({
+        name: 'mainFrameGroup',
+        scrollEnabled: true, // 支持手势滑动切换
+        rect: {
+            x: 0,
+            y: headerH + navH,
+            w: 'auto', // 自动填充所在Window的宽度
+            h: 'auto' // 自动填充所在Window的高度
+        },
+        index: 0, // 默认显示第一个Frame
+        frames: frames,
+        preload: frames.length // 预加载所有Frame
+    }, function(ret, err) {
+        // Frame切换完成的响应函数，更新分类菜单的选中状态
+        fnSetNavMenuSelected(ret.index);
+    });
 
-        for (var i = 0; i < video_group.item.length; i++) {
-            video_group_frames.push({
-                name: 'video_group_' + i,
-                url: 'video_frame.html',
-                vScrollBarEnabled: false,
-                pageParam: {
-                    type: '视频',
-                    childType: video_group.item[i].title
-                }
-            });
-        };
+    // 打开mini购物车Frame
+    api.openFrame({
+        name: 'minicart_frame',
+        url: './minicart_frame.html',
+        rect: {
+            x: 0,
+            y: api.winHeight - 55,
+            w: 150,
+            h: 34
+        },
+        bounces: false // 关闭弹动
+    });
 
-        var topics_group_frames = [{
-            name: ' recommentlist_frame',
-            url: './recommentlist_frame.html',
-            vScrollBarEnabled: false
-        }, {
-            name: 'themelist_frame',
-            url: './themelist_frame.html',
-            vScrollBarEnabled: false
-        }];
+    // 将mini购物车Frame放置在首页Window所有Frame的最上层
+    api.bringFrameToFront({
+        from: 'minicart_frame'
+    });
 
-        function fnOpenFrameGroup(index, isOpen) {
-            if (isOpen) {
-                currentIndex = index;
-                api.openFrameGroup({
-                    name: frameNames[index],
-                    scrollEnabled: true,
-                    rect: {
-                        x: 0,
-                        y: headerHeight,
-                        w: 'auto',
-                        h: api.winHeight - headerHeight - footerHeight
-                    },
-                    index: 0,
-                    frames: window[frameNames[index] + '_frames']
-                }, function(ret, err) {
+    // 标记为已经打开
+    framesOpened = true;
+}
 
-                    if (currentIndex < 2) {
-                        navigationBar.config({
-                            id: window[frameNames[currentIndex] + '_id'],
-                            key: 'selectedIndex',
-                            value: ret.index
-                        });
-                    } else {
-                        changeStyle(ret.index);
-                    }
-                });
-            } else {
-                api.setFrameGroupAttr({
-                    name: frameNames[index],
-                    hidden: true
-                });
+// 分类菜单点击的响应函数，切换Frame
+function fnSetNavMenuIndex(index_) {
+    // 首先更新菜单选中状态
+    fnSetNavMenuSelected(index_);
+
+    // 切换FrameGroup中的当前Frame
+    api.setFrameGroupIndex({
+        name: 'mainFrameGroup',
+        index: index_,
+        scroll: true
+    });
+}
+
+// 更新分类菜单的选中状态
+function fnSetNavMenuSelected(index_) {
+    for (var i = 0; i < menus.length; i++) {
+        if (index_ == i) {
+            $api.addCls(menus[i], 'selected');
+        } else {
+            $api.removeCls(menus[i], 'selected');
+        }
+    }
+}
+
+// 根据UI架构设计（ui-architecture.xmind），打开个人中心Window
+function fnOpenPersonalCenterWin() {
+    // 从缓存中获取用户信息
+    var userInfo = $api.getStorage('userInfo');
+
+    // 判断当前用户是否登录了
+    if (userInfo && userInfo.id) {
+        // 登录成功，打开个人中心Window
+        api.openWin({
+            name: 'personalcenter',
+            url: './personalcenter.html',
+            pageParam: {
+                name: 'test'
             }
-        };
-
-        function fnOpenThemeChoose() {
-            api.openWin({
-                name: 'theme_choose',
-                url: 'theme_choose.html',
-
-            });
-        }
-
-        function fnLogin() {
-            api.openWin({
-                name: 'login_choose',
-                url: './login_choose.html'
-            });
-        }
-        // 搜索
-        function fnSearch() {
-            api.openWin({
-                name: 'search_home',
-                url: 'search_home.html'
-            });
-        }
-
-    </script>
+        });
+    } else {
+        // 没有登录，打开登录Window
+        api.openWin({
+            name: 'login',
+            url: './login.html',
+            pageParam: {
+                name: 'test'
+            }
+        });
+    }
+}
+</script>
 
 </html>
