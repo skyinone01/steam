@@ -299,7 +299,8 @@
 <script type="text/javascript">
 
 var framesOpened = false,
-    menus, headerH, navH, bMap, city,footerH;
+    menus, headerH, navH, bMap, city,footerH,header,footer;
+var footermenus;
 
 apiready = function() {
 
@@ -309,8 +310,8 @@ apiready = function() {
     // 获取当前的位置信息
     initLocation();
 
-    var header = $api.byId('header');
-    var footer = $api.byId('footer');
+    header = $api.byId('header');
+    footer = $api.byId('footer');
     var nav = $api.byId('nav');
 
     // 实现沉浸式状态栏效果
@@ -323,6 +324,7 @@ apiready = function() {
 
     // 获取所有的分类菜单
     menus = $api.domAll(nav, '.menu');
+    footermenus =$api.domAll(footer, '.footermenu');
 
     // 从缓存中获取上一次选择的城市信息
     var currentCity = $api.getStorage('currentCity');
@@ -340,6 +342,61 @@ apiready = function() {
     openFrames();
 };
 
+function fnChange(index) {
+    for (var i = 0; i < footermenus.length; i++) {
+        if (index == i) {
+            $api.addCls(footermenus[i], 'active');
+            switch (i) {
+                case 3:
+                    fnOpenFrame(i, true);
+                    break;
+                case 2:
+                    fnOpenFrameGroup(i, true);
+                    break;
+                default:
+                    fnOpenFrameGroup(i, true);
+                    fnNavigationBar(i, true);
+                    break;
+            }
+        } else {
+            $api.removeCls(footermenus[i], 'active');
+            switch (i) {
+                case 3:
+                    fnOpenFrame(i, false);
+                    break;
+                case 2:
+                    fnOpenFrameGroup(i, false);
+                    break;
+                default:
+                    fnOpenFrameGroup(i, false);
+                    fnNavigationBar(i, false);
+                    break;
+            }
+        }
+    }
+};
+
+function fnOpenFrame(index, isOpen) {
+    if (isOpen) {
+        api.openFrame({
+            name: frameNames[index],
+            url: './' + frameNames[index] + '.html',
+            bounces: false,
+            rect: {
+                x: 0,
+                y: 0,
+                w: 'auto',
+                h: api.winHeight - footerHeight
+            },
+            vScrollBarEnabled:false
+        });
+    } else {
+        api.setFrameAttr({
+            name: frameNames[index],
+            hidden: true
+        });
+    }
+};
 
 function updateCityName(cityName_) {
     city = $api.byId('city');
@@ -466,7 +523,6 @@ function openFrames() {
     if (framesOpened) {
         return;
     }
-
     // 构造FrameGroup中的Frame数组
     var frames = [];
     for (var i = 0; i < menus.length; i++) {
@@ -478,7 +534,6 @@ function openFrames() {
             }
         });
     }
-
     // 打开FrameGroup
     api.openFrameGroup({
         name: 'mainFrameGroup',
@@ -495,24 +550,6 @@ function openFrames() {
     }, function(ret, err) {
         // Frame切换完成的响应函数，更新分类菜单的选中状态
         fnSetNavMenuSelected(ret.index);
-    });
-
-    // 打开mini购物车Frame
-    api.openFrame({
-        name: 'minicart_frame',
-        url: './minicart_frame.html',
-        rect: {
-            x: 0,
-            y: api.winHeight - 55,
-            w: 150,
-            h: 34
-        },
-        bounces: false // 关闭弹动
-    });
-
-    // 将mini购物车Frame放置在首页Window所有Frame的最上层
-    api.bringFrameToFront({
-        from: 'minicart_frame'
     });
 
     // 标记为已经打开
