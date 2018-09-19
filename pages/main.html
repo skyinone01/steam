@@ -189,7 +189,7 @@
       -webkit-flex: 1;
       -webkit-box-flex: 1;
       -webkit-box-orient: horizontal;
-      height: 100px;
+      height: 200px;
       font-size: 10px;
       text-align: center;
       background-size: 22px 22px;
@@ -286,6 +286,11 @@
         /*color: #fff;*/
         text-align: left;
       }
+      .frameBanner{
+        width: 100%;
+        height: 100px;
+        background-color:blue;
+      }
     </style>
 </head>
 
@@ -304,8 +309,14 @@
     </nav>
     <section class="content">
 
+
       <div class="frameHeader">
-        <div style="height:35px"></div>
+        <div id="banner" class="frameBanner">
+
+        </div>
+        <div style="height:35px">
+
+        </div>
         <div>
           <div class="practice active " tapmode="active" onclick="fnChangeQuick(0)">快速练习</div>
           <div class="real active " tapmode="active" onclick="fnChangeQuick(0)">历年真题</div>
@@ -320,7 +331,24 @@
              <div class="contenttitle">政治</div>
            </div>
            <div>
-
+             <div class="contenticon"></div>
+             <div class="contenttitle">经济</div>
+           </div>
+           <div>
+             <div class="contenticon"></div>
+             <div class="contenttitle">管理</div>
+           </div>
+           <div>
+             <div class="contenticon"></div>
+             <div class="contenttitle">公文</div>
+           </div>
+           <div>
+             <div class="contenticon"></div>
+             <div class="contenttitle">人文科技</div>
+           </div>
+           <div>
+             <div class="contenticon"></div>
+             <div class="contenttitle">法律</div>
            </div>
         <div>
       </div>
@@ -333,10 +361,11 @@
     </footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
 <script type="text/javascript">
 
 var framesOpened = false,
-    menus, headerH, navH, bMap, city,footerH,header,footer;
+    menus, headerH, navH, bMap, city,footerH,header,footer,banner,bannerH,bannerW;
 var footermenus;
 
 apiready = function() {
@@ -349,6 +378,7 @@ apiready = function() {
 
     header = $api.byId('header');
     footer = $api.byId('footer');
+    banner = $api.byId('banner');
     var nav = $api.byId('nav');
 
     // 实现沉浸式状态栏效果
@@ -356,6 +386,8 @@ apiready = function() {
 
     // 计算header和nav元素的高度
     headerH = $api.offset(header).h;
+    bannerH = $api.offset(banner).h;
+    bannerW = $api.offset(banner).w;
     navH = $api.offset(nav).h;
     footerH = $api.offset(footer).h;
 
@@ -377,6 +409,57 @@ apiready = function() {
 
     // 打开首页的所有Frames
     openFrames();
+
+    var UIScrollPicture = api.require('UIScrollPicture');
+    UIScrollPicture.open({
+        rect: {
+            x: 0,
+            y: 50,
+            w: bannerW,
+            h: bannerH
+        },
+        data: {
+            paths: [
+                'widget://res/img/default1.jpg',
+                'widget://res/img/default1.jpg',
+                'widget://res/img/default1.jpg',
+                'widget://res/img/default1.jpg'
+            ],
+            captions: ['apicloud', 'apicloud', 'apicloud', 'apicloud']
+        },
+        styles: {
+            caption: {
+                height: 35,
+                color: '#E0FFFF',
+                size: 13,
+                bgColor: '#696969',
+                position: 'bottom'
+            },
+            indicator: {
+               dot:{
+                 w:20,
+                 h:10,
+                 r:5,
+                 margin:20
+              },
+                align: 'center',
+                color: '#FFFFFF',
+                activeColor: '#DA70D6'
+            }
+        },
+        placeholderImg: 'widget://res/default1.jpg',
+        contentMode: 'scaleToFill',
+        interval: 3,
+        fixedOn: api.frameName,
+        loop: true,
+        fixed: false
+    }, function(ret, err) {
+        if (ret) {
+            alert(JSON.stringify(ret));
+        } else {
+            alert(JSON.stringify(err));
+        }
+    });
 };
 
 function fnChange(index) {
