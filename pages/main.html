@@ -81,44 +81,12 @@
 
     header .left {
         position: absolute;
-        padding-top: 10px;
+        padding-top: 5px;
         left: 10px;
-        width: 40px;
+        width: 80px;
         height: 50px;
     }
 
-    nav {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-flex-flow: row;
-        flex-flow: row;
-        position: relative;
-        width: 100%;
-        height: 40px;
-        border-bottom: 0.5px solid #CCCCCC;
-        /*background-color: #F8F8FF;*/
-    }
-
-    nav .menu {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1;
-        flex: 1;
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        font-size: 13px;
-        color: #A3A3A3;
-        text-align: left;
-        padding-left: 10px;
-    }
-
-    nav .menu.selected {
-        font-size: 14px;
-        color: #000000;
-        /*font-weight: bolder;*/
-    }
 
     .footer {
         height: 44px;
@@ -301,7 +269,7 @@
             <div class="city" id="city">北京市</div>
         </div>
         <!-- <div class="center"></div> -->
-        <div class="left" ><font style="font-size:20px; ">练习</font></div>
+        <div class="left" ><font style="font-size:30px; ">练习</font></div>
     </header>
     <nav id="nav">
         <div class="menu selected" tapmode="selected" onclick="fnSetNavMenuIndex(0);">美术教师</div>
@@ -371,10 +339,10 @@ var footermenus;
 apiready = function() {
 
     // 初始化事件监听
-    initEventListenner();
+    // initEventListenner();
 
     // 获取当前的位置信息
-    initLocation();
+    // initLocation();
 
     header = $api.byId('header');
     footer = $api.byId('footer');
@@ -395,71 +363,11 @@ apiready = function() {
     menus = $api.domAll(nav, '.menu');
     footermenus =$api.domAll(footer, '.footermenu');
 
-    // 从缓存中获取上一次选择的城市信息
-    var currentCity = $api.getStorage('currentCity');
-
-    // 如果获取不到，说明还没有选择城市，打开城市选择Frame，并返回
-    if (!currentCity) {
-        fnOpenCitySelectorFrame();
-        return;
-    }
-
-    // 更新界面上显示的城市名称
-    updateCityName(currentCity.name);
-
     // 打开首页的所有Frames
-    openFrames();
+    // openFrames();
+    fnChange(0)
 
-    var UIScrollPicture = api.require('UIScrollPicture');
-    UIScrollPicture.open({
-        rect: {
-            x: 0,
-            y: 50,
-            w: bannerW,
-            h: bannerH
-        },
-        data: {
-            paths: [
-                'widget://res/img/default1.jpg',
-                'widget://res/img/default1.jpg',
-                'widget://res/img/default1.jpg',
-                'widget://res/img/default1.jpg'
-            ],
-            captions: ['apicloud', 'apicloud', 'apicloud', 'apicloud']
-        },
-        styles: {
-            caption: {
-                height: 35,
-                color: '#E0FFFF',
-                size: 13,
-                bgColor: '#696969',
-                position: 'bottom'
-            },
-            indicator: {
-               dot:{
-                 w:20,
-                 h:10,
-                 r:5,
-                 margin:20
-              },
-                align: 'center',
-                color: '#FFFFFF',
-                activeColor: '#DA70D6'
-            }
-        },
-        placeholderImg: 'widget://res/default1.jpg',
-        contentMode: 'scaleToFill',
-        interval: 3,
-        fixedOn: api.frameName,
-        loop: true,
-        fixed: false
-    }, function(ret, err) {
-        if (ret) {
-            alert(JSON.stringify(ret));
-        } else {
-            alert(JSON.stringify(err));
-        }
-    });
+
 };
 
 function fnChange(index) {
@@ -475,7 +383,6 @@ function fnChange(index) {
                     break;
                 default:
                     fnOpenFrameGroup(i, true);
-                    fnNavigationBar(i, true);
                     break;
             }
         } else {
@@ -489,12 +396,13 @@ function fnChange(index) {
                     break;
                 default:
                     fnOpenFrameGroup(i, false);
-                    fnNavigationBar(i, false);
                     break;
             }
         }
     }
 };
+
+var frameNames = ['practice_group', 'course_group', 'discorr_group', 'my_frame'];
 
 function fnOpenFrame(index, isOpen) {
     if (isOpen) {
@@ -506,7 +414,7 @@ function fnOpenFrame(index, isOpen) {
                 x: 0,
                 y: 0,
                 w: 'auto',
-                h: api.winHeight - footerHeight
+                h: api.winHeight - footerH
             },
             vScrollBarEnabled:false
         });
@@ -518,123 +426,103 @@ function fnOpenFrame(index, isOpen) {
     }
 };
 
-function updateCityName(cityName_) {
-    city = $api.byId('city');
-    city.innerHTML = cityName_
-}
+var practice_group = {
+        item: [{
+            title: '教师编',
+            bg: '#d43d3d',
+        }],
+        font: {
+            color: '#efb7b7',
+            colorSelected: '#fff',
+            size: 15,
+            sizeSelected: 15
+        }
+    },
+    course_group = {
+        item: [{
+            title: '教师编',
+            bg: '#fff',
+        }],
+        font: {
+            color: '#505050',
+            colorSelected: '#f85959',
+            size: 15,
+            sizeSelected: 15
+        }
+    };
 
-function resetArrowState() {
-    var arrow = $api.byId('arrow');
-    if ($api.hasCls(arrow, 'active')) {
-        $api.removeCls(arrow, 'active');
-    }
-}
-
-function setArrowStateActive() {
-    var arrow = $api.byId('arrow');
-    if (!$api.hasCls(arrow, 'active')) {
-        $api.addCls(arrow, 'active');
-    }
-}
-
-// 初始化事件监听
-function initEventListenner() {
-    // 监听城市切换事件（自定义事件）
-    api.addEventListener({
-        name: 'cityChange'
-    }, function(ret, err) {
-        if (ret) {
-            // 更新城市名称
-            updateCityName(ret.value.currentCity.name);
-
-            // 更新箭头状态
-            resetArrowState();
-
-            // 打开商品列表等首页的Frames
-            openFrames();
+var practice_group_frames = [],
+    course_group_frames = [];
+for (var i = 0; i < practice_group.item.length; i++) {
+    practice_group_frames.push({
+        name: 'practice_frame_' + i,
+        url: 'practice_frame.html',
+        vScrollBarEnabled: false,
+        pageParam: {
+            type: practice_group.item[i].title
         }
     });
+};
 
-    // 拦截Android的返回键，在首页点击返回键，提示退出应用
-    api.addEventListener({
-        name: 'keyback'
-    }, function(ret, err) {
-        api.confirm({
-            title: '提示',
-            msg: '是否退出应用',
-            buttons: ['确定', '取消']
+for (var i = 0; i < course_group.item.length; i++) {
+    course_group_frames.push({
+        name: 'course_group_' + i,
+        url: 'course_frame.html',
+        vScrollBarEnabled: false,
+        pageParam: {
+            type: '课程',
+            childType: course_group.item[i].title
+        }
+    });
+};
+
+var discover_group_frames = [{
+    name: ' recommentlist_frame',
+    url: './recommentlist_frame.html',
+    vScrollBarEnabled: false
+}, {
+    name: 'followlist_frame',
+    url: './followlist_frame.html',
+    vScrollBarEnabled: false
+}];
+
+
+function fnOpenFrameGroup(index, isOpen) {
+    if (isOpen) {
+        currentIndex = index;
+        api.openFrameGroup({
+            name: frameNames[index],
+            scrollEnabled: true,
+            rect: {
+                x: 0,
+                y: headerH,
+                w: 'auto',
+                h: api.winHeight - headerH - footerH
+            },
+            index: 0,
+            frames: window[frameNames[index] + '_frames']
         }, function(ret, err) {
-            if (ret.buttonIndex == 1) {
-                // 关闭当前的主Widget，就可以实现推出APP的效果
-                api.closeWidget({
-                    silent: true //直接退出，无需提示
-                });
+
+            if (currentIndex < 2) {
+                // navigationBar.config({
+                //     id: window[frameNames[currentIndex] + '_id'],
+                //     key: 'selectedIndex',
+                //     value: ret.index
+                // });
+            } else {
+                changeStyle(ret.index);
             }
         });
-    });
-}
-
-function initLocation() {
-    // 加载百度地图模块
-    bMap = api.require('bMap');
-
-    // 获取当前经纬度
-    bMap.getLocation({
-        accuracy: '1000m', // 定位所在城市信息，不需要精准定位
-        autoStop: true, // 定位到经纬度后，立即自动停止定位服务
-        filter: 100000 // 基本无需处理位置更新的情况
-    }, function(ret, err) {
-        if (ret.status) {
-            // 根据经纬度获得城市名称
-            fnGetCityNameFromLocation(ret);
-        } else {
-            alert(err.code);
-        }
-    });
-}
-
-// 根据经纬度获得城市名称
-function fnGetCityNameFromLocation(location_) {
-    bMap.getNameFromCoords({
-        lon: location_.lon,
-        lat: location_.lat
-    }, function(ret, err) {
-        if (ret.status) {
-            // 判断当前所在的城市与上一次选择的城市是否一致
-            fnCheckCityChange(ret.city);
-        }
-    });
-}
-
-// 判断当前所在的城市与上一次选择的城市是否一致，不一致则打开城市选择Frame
-function fnCheckCityChange(cityName_) {
-    if (!city) {
-        return;
+    } else {
+        api.setFrameGroupAttr({
+            name: frameNames[index],
+            hidden: true
+        });
     }
-    if (city.innerHTML != cityName_) {
-        fnOpenCitySelectorFrame();
-    }
-}
+};
 
-// 打开城市选择Frame
-function fnOpenCitySelectorFrame() {
-    // 设置箭头状态
-    setArrowStateActive();
 
-    // 根据UI架构设计（ui-architecture.xmind），打开城市选择Frame
-    api.openFrame({
-        name: 'cityselector_frame',
-        url: './cityselector_frame.html',
-        bgColor: 'rgba(0, 0, 0, 0.8)',
-        rect: {
-            x: 0,
-            y: headerH,
-            w: 'auto', // 自动填充所在Window的宽度
-            h: 'auto' // 自动填充所在Window的高度
-        },
-        bounces: true // 打开弹动
-    });
-}
+
 
 // 打开商品列表FrameGroup和mini购物车Frame
 function openFrames() {
