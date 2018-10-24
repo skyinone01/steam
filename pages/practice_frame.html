@@ -12,33 +12,6 @@
       height: 100%;
     }
 
-    .search_box {
-      width: 100%;
-      height: 50px;
-      background-color: #f4f5f6;
-      box-sizing: border-box;
-      padding-left: 15px;
-      padding-top: 8px;
-      padding-right: 15px;
-    }
-
-    .search {
-      width: 100%;
-      height: 33px;
-      line-height: 33px;
-      box-sizing: border-box;
-      padding-left: 31px;
-      font-size: 14px;
-      color: #999;
-      background-color: #fff;
-      border: 1px solid #e8e8e8;
-      border-radius: 6px;
-      background-image: url(../image/search.png);
-      background-size: 15px 15px;
-      background-repeat: no-repeat;
-      background-position: 13px center;
-    }
-
     .content {
       box-sizing: border-box;
       padding: 0 15px;
@@ -250,7 +223,7 @@
       -webkit-box-flex: 1;
       -webkit-box-orient: horizontal;
       height: 200px;
-      font-size: 10px;
+      font-size: 12px;
       text-align: center;
       background-size: 22px 22px;
       background-position: center 5px;
@@ -260,6 +233,7 @@
       margin-right: 10px;
       margin-bottom: 10px;
       background-color: white;
+      color: #007F7F;
     }
 
     .frameHeader .practice {
@@ -269,8 +243,6 @@
         box-sizing: border-box;
         padding-bottom: 5px;
         padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
         text-align: center;
         background-size: 22px 22px;
         background-position: center 5px;
@@ -288,8 +260,6 @@
         box-sizing: border-box;
         padding-bottom: 5px;
         padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
         text-align: center;
         background-size: 22px 22px;
         background-position: center 5px;
@@ -307,8 +277,6 @@
         box-sizing: border-box;
         padding-bottom: 5px;
         padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
         text-align: center;
         background-size: 22px 22px;
         background-position: center 5px;
@@ -319,7 +287,15 @@
         margin-right: 10px;
     }
 
-
+    maincontent {
+      -webkit-flex: 1;
+      -webkit-box-flex: 1;
+    }
+    maincontent .contentblock{
+      -webkit-flex: 1;
+      -webkit-box-flex: 1;
+      box-sizing: border-box;
+    }
     .contenticon {
         position: relative;
         left: 15px;
@@ -348,7 +324,7 @@
       }
       .frameBanner{
         width: 100%;
-        height: 100px;
+        height: 150px;
         background-color:blue;
       }
   </style>
@@ -357,9 +333,9 @@
 <body>
   <nav id="nav" class="nav">
       <div class="menu selected" tapmode="selected" onclick="fnSetNavMenuIndex(0);">美术教师</div>
-      <div class="menu" tapmode="selected" onclick="fnSetNavMenuIndex(1);">食材</div>
+      <!-- <div class="menu" tapmode="selected" onclick="fnSetNa?vMenuIndex(1);">食材</div> -->
   </nav>
-  <section class="content">
+
     <div class="frameHeader">
       <div id="banner" class="frameBanner">
 
@@ -370,39 +346,36 @@
       <div>
         <div class="practice active " tapmode="active" onclick="fnChangeQuick(0)">快速练习</div>
         <div class="real active " tapmode="active" onclick="fnChangeQuick(0)">历年真题</div>
-        <div class="test active " tapmode="active" onclick="fnChangeQuick(0)">智能组卷</div>
+        <div class="test active " tapmode="active" onclick="fnChangeQuick(0)">模拟考试</div>
       </div>
     </div>
 
     <div id="maincontent">
-      <div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">政治</div>
          </div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">经济</div>
          </div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">管理</div>
          </div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">公文</div>
          </div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">人文科技</div>
          </div>
-         <div>
+         <div class="contentblock">
            <div class="contenticon"></div>
            <div class="contenttitle">法律</div>
          </div>
-      <div>
     </div>
-  </section>
   <div id="headlist"></div>
 </body>
 
