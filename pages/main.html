@@ -153,112 +153,7 @@
         background-color: #FBFBFB;
     }
 
-    .frameHeader{
-      -webkit-flex: 1;
-      -webkit-box-flex: 1;
-      -webkit-box-orient: horizontal;
-      height: 200px;
-      font-size: 10px;
-      text-align: center;
-      background-size: 22px 22px;
-      background-position: center 5px;
-      background-repeat: no-repeat;
-      margin-left: 10px;
-      margin-top: 10px;
-      margin-right: 10px;
-      margin-bottom: 10px;
-      background-color: white;
-    }
 
-    .frameHeader .practice {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
-        height: 44px;
-        box-sizing: border-box;
-        padding-bottom: 5px;
-        padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
-        text-align: center;
-        background-size: 22px 22px;
-        background-position: center 5px;
-        background-repeat: no-repeat;
-        background-image: url(../image/head/practice.png);
-        display: inline-flex;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .frameHeader .test {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
-        height: 44px;
-        box-sizing: border-box;
-        padding-bottom: 5px;
-        padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
-        text-align: center;
-        background-size: 22px 22px;
-        background-position: center 5px;
-        background-repeat: no-repeat;
-        background-image: url(../image/head/test.png);
-        display: inline-flex;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .frameHeader .real {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
-        height: 44px;
-        box-sizing: border-box;
-        padding-bottom: 5px;
-        padding-top: 27px;
-        color: #CAE1FF;
-        font-size: 10px;
-        text-align: center;
-        background-size: 22px 22px;
-        background-position: center 5px;
-        background-repeat: no-repeat;
-        background-image: url(../image/head/real.png);
-        display: inline-flex;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-
-    .contenticon {
-        position: relative;
-        left: 15px;
-        width: 15px;
-        height: 15px;
-        background: url(../image/shouye/in.png);
-        background-size: 13px 13px;
-        background-position: center center;
-        background-repeat: no-repeat;
-        display: inline-block;;
-        transition: 200ms;
-        top:3px;
-    }
-    .contenttitle{
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        height: 50px;
-        padding-left: 15px;
-        box-sizing: border-box;
-        line-height: 50px;
-        font-size: 14px;
-        display: inline;
-        /*color: #fff;*/
-        text-align: left;
-      }
-      .frameBanner{
-        width: 100%;
-        height: 100px;
-        background-color:blue;
-      }
     </style>
 </head>
 
@@ -276,50 +171,6 @@
         <!-- <div class="menu" tapmode="selected" onclick="fnSetNavMenuIndex(1);">食材</div> -->
     </nav>
     <section class="content">
-
-
-      <div class="frameHeader">
-        <div id="banner" class="frameBanner">
-
-        </div>
-        <div style="height:35px">
-
-        </div>
-        <div>
-          <div class="practice active " tapmode="active" onclick="fnChangeQuick(0)">快速练习</div>
-          <div class="real active " tapmode="active" onclick="fnChangeQuick(0)">历年真题</div>
-          <div class="test active " tapmode="active" onclick="fnChangeQuick(0)">智能组卷</div>
-        </div>
-      </div>
-
-      <div id="maincontent">
-        <div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">政治</div>
-           </div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">经济</div>
-           </div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">管理</div>
-           </div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">公文</div>
-           </div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">人文科技</div>
-           </div>
-           <div>
-             <div class="contenticon"></div>
-             <div class="contenttitle">法律</div>
-           </div>
-        <div>
-      </div>
     </section>
     <footer id="footer" class="footer">
         <div class="footermenu home active " tapmode="active" onclick="fnChange(0)">练习</div>
@@ -346,21 +197,14 @@ apiready = function() {
 
     header = $api.byId('header');
     footer = $api.byId('footer');
-    banner = $api.byId('banner');
-    var nav = $api.byId('nav');
-
     // 实现沉浸式状态栏效果
     $api.fixStatusBar(header);
 
     // 计算header和nav元素的高度
     headerH = $api.offset(header).h;
-    bannerH = $api.offset(banner).h;
-    bannerW = $api.offset(banner).w;
-    navH = $api.offset(nav).h;
     footerH = $api.offset(footer).h;
 
     // 获取所有的分类菜单
-    menus = $api.domAll(nav, '.menu');
     footermenus =$api.domAll(footer, '.footermenu');
 
     // 打开首页的所有Frames
