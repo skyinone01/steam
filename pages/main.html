@@ -166,10 +166,6 @@
         <!-- <div class="center"></div> -->
         <div class="left" ><font style="font-size:30px; ">练习</font></div>
     </header>
-    <nav id="nav">
-        <div class="menu selected" tapmode="selected" onclick="fnSetNavMenuIndex(0);">美术教师</div>
-        <!-- <div class="menu" tapmode="selected" onclick="fnSetNavMenuIndex(1);">食材</div> -->
-    </nav>
     <section class="content">
     </section>
     <footer id="footer" class="footer">
@@ -222,9 +218,6 @@ function fnChange(index) {
                 case 3:
                     fnOpenFrame(i, true);
                     break;
-                case 2:
-                    fnOpenFrameGroup(i, true);
-                    break;
                 default:
                     fnOpenFrameGroup(i, true);
                     break;
@@ -234,9 +227,6 @@ function fnChange(index) {
             switch (i) {
                 case 3:
                     fnOpenFrame(i, false);
-                    break;
-                case 2:
-                    fnOpenFrameGroup(i, false);
                     break;
                 default:
                     fnOpenFrameGroup(i, false);
@@ -272,7 +262,7 @@ function fnOpenFrame(index, isOpen) {
 
 var practice_group = {
         item: [{
-            title: '教师编',
+            title: '教师编1',
             bg: '#d43d3d',
         }],
         font: {
@@ -346,7 +336,7 @@ function fnOpenFrameGroup(index, isOpen) {
             index: 0,
             frames: window[frameNames[index] + '_frames']
         }, function(ret, err) {
-
+          
             if (currentIndex < 2) {
                 // navigationBar.config({
                 //     id: window[frameNames[currentIndex] + '_id'],
