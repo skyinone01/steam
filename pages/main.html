@@ -96,6 +96,7 @@
         flex-flow: row;
         -webkit-flex-flow: row;
         -webkit-box-orient: horizontal;
+        border-top: 1px solid #CCCCCC;
         /*background-color: #f4f5f6;*/
     }
 
@@ -336,7 +337,7 @@ function fnOpenFrameGroup(index, isOpen) {
             index: 0,
             frames: window[frameNames[index] + '_frames']
         }, function(ret, err) {
-          
+
             if (currentIndex < 2) {
                 // navigationBar.config({
                 //     id: window[frameNames[currentIndex] + '_id'],
