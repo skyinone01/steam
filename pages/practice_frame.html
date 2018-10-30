@@ -219,9 +219,6 @@
 
 
     .frameHeader{
-      -webkit-flex: 1;
-      -webkit-box-flex: 1;
-      -webkit-box-orient: horizontal;
       font-size: 12px;
       text-align: center;
       margin-left: 10px;
@@ -229,12 +226,11 @@
       margin-right: 10px;
       margin-bottom: 10px;
       background-color: white;
-      color: #007F7F;
+      font-size: 13px;
+      /*color: #007F7F;*/
     }
 
     .frameHeader .practice {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
         height: 44px;
         box-sizing: border-box;
         padding-bottom: 5px;
@@ -250,8 +246,6 @@
     }
 
     .frameHeader .test {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
         height: 44px;
         box-sizing: border-box;
         padding-bottom: 5px;
@@ -267,8 +261,6 @@
     }
 
     .frameHeader .real {
-        -webkit-flex: 1;
-        -webkit-box-flex: 1;
         height: 44px;
         box-sizing: border-box;
         padding-bottom: 5px;
@@ -318,11 +310,19 @@
         text-align: left;
       }
       .contentbar{
-          position: relative;
-          z-index: 2;
-          padding-left: 15px;
-          box-sizing: border-box;
-        }
+        position: relative;
+        z-index: 2;
+        padding-left: 35px;
+        margin-top: -15px;
+        box-sizing: border-box;
+      }
+      .contentbar .digit{
+        display: inline-flex;
+        font-size: 4px;
+      }
+      .contentbar .photo{
+        display: inline-flex;
+      }
       .frameBanner{
         width: 100%;
         height: 150px;
@@ -330,24 +330,26 @@
       }
 
       //进度条
-     .progressbar{
-          background: #66ccff;
-          width:300px;
-          height:50px;
-          -webkit-appearance: none;
-       }
-      ::-ms-fill{
-          background:deeppink;
+      progress::-ms-fill{
+          background:#66ccff;
       }
-      ::-moz-progress-bar{
-          background:deeppink;
-       }
-      ::-webkit-progress-bar{
-          background:orange;
-       }
-      ::-webkit-progress-value{
-          background:deeppink;
-       }
+      progress {
+          display: inline-block;
+          width: 130px;
+          height: 4px;
+          background-color:#e6e6e6;
+          color: #66ccff; /*IE10*/
+      }
+      /*ie6-ie9*/
+      progress ie {
+          display:block;
+          height: 100%;
+          background: #66ccff;
+      }
+
+      progress::-moz-progress-bar { background: #66ccff; }
+      progress::-webkit-progress-bar { background: #e6e6e6; }
+      progress::-webkit-progress-value  { background: #66ccff; }
 
   </style>
 </head>
@@ -376,12 +378,14 @@
   <script type="text/javascript" src="../script/APICloud-rest.js"></script>
   <script id="template" type="text/template">
   {{~ it:data }}
-  <div class="contentblock" tapmode onclick="fnOpenContent('{{= data.id }}')">
-    <div class="contenticon"></div>
-    <div class="contenttitle">{{=data.name}}</div>
+  <div class="contentblock" >
+    <div class="contenticon"  tapmode onclick="fnOpenContent('{{= data.id }}')"></div>
+    <div class="contenttitle"  tapmode onclick="fnOpenContent('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
-      <progress value="20"  max="100" class="progressbar">
-      </progress>
+      <div class="photo">
+        <progress value="20"  max="100"></progress>
+      </div>
+      <div class="digit">{{=data.done}}/{{=data.total}}</div>
     </div>
   </div>
   {{~}}
@@ -555,12 +559,12 @@
           }, function(ret, err) {
 
             console.log(JSON.stringify(ret));
-            ret = [{"name":"政治","id":1},
-                      {"name":"经济","id":2},
-                      {"name":"管理","id":3},
-                      {"name":"公文","id":4},
-                      {"name":"人文科技","id":5},
-                      {"name":"法律","id":6}
+            ret = [{"name":"政治","id":1,"done":12,"total":100},
+                      {"name":"经济","id":2,"done":12,"total":100},
+                      {"name":"管理","id":3,"done":12,"total":100},
+                      {"name":"公文","id":4,"done":12,"total":100},
+                      {"name":"人文科技","id":5,"done":12,"total":100},
+                      {"name":"法律","id":6,"done":12,"total":100}
                       ]
             api.hideProgress();
             api.refreshHeaderLoadDone();
