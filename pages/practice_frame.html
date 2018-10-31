@@ -379,7 +379,23 @@
   <script id="template" type="text/template">
   {{~ it:data }}
   <div class="contentblock" >
-    <div class="contenticon"  tapmode onclick="fnOpenContent('{{= data.id }}')"></div>
+    <div class="contenticon"  tapmode onclick="getSubContent('{{= data.id }}')"></div>
+    <div class="contenttitle"  tapmode onclick="getSubContent('{{= data.id }}')">{{=data.name}}</div>
+    <div class="contentbar">
+      <div class="photo">
+        <progress value="20"  max="100"></progress>
+      </div>
+      <div class="digit">{{=data.done}}/{{=data.total}}</div>
+    </div>
+    {{? data.hasChild==1}}
+    <div id="subContent{{data.id}}"></div>
+    {{?}}
+  </div>
+  {{~}}
+  </script>
+  <script id="subTemplate" type="text/template">
+  {{~ it:data }}
+  <div class="contentblock" >
     <div class="contenttitle"  tapmode onclick="fnOpenContent('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
       <div class="photo">
@@ -392,7 +408,7 @@
   </script>
   <script type="text/javascript">
     var frameName, search_box, banner, bannerX, bannerY, bannerH, bannerW;
-    var headlist, dot;
+    var headlist, dot, subContent, subDot;
     var dataLoading = false,
     isEmpty = false,
     skip = 0,
@@ -510,6 +526,25 @@
             headList(progress, true);
           });
         };
+        function initSubContent(id){
+          subContent = $api.byId('subContent'+id);
+          var subTemplate = $api.byId('subTemplate');
+          subDot = doT.template(subTemplate.innerHTML);
+          alert(id + subContent);
+        }
+        // 获取subContent
+        function getSubContent(id) {
+
+          var ret = [{"name":"政治","id":1,"done":12,"total":100,"hasChild":1},
+                    {"name":"经济","id":2,"done":12,"total":100,"hasChild":1},
+                    {"name":"管理","id":3,"done":12,"total":100,"hasChild":1},
+                    {"name":"公文","id":4,"done":12,"total":100,"hasChild":1},
+                    {"name":"人文科技","id":5,"done":12,"total":100,"hasChild":1},
+                    {"name":"法律","id":6,"done":12,"total":100,"hasChild":1}
+                    ]
+          subContent.innerHTML = subDot(ret);
+
+        }
         // doT
         function fninit() {
           headlist = $api.byId('headlist');
@@ -518,26 +553,12 @@
 
         }
         // 获取信息
-        function headList(progress, isPull) {
+        function headList(progress) {
           if (dataLoading) {
             return;
           }
           dataLoading = true;
 
-          if (isPull) {
-            skip = 0;
-            isEmpty = false;
-          }
-
-          if (isEmpty) {
-            api.toast({
-              msg: '没有更多了',
-              duration: 2000,
-              location: 'bottom'
-            });
-            dataLoading = false;
-            return;
-          }
           if (progress) {
             api.showProgress({
               title: '加载中',
@@ -546,7 +567,6 @@
           }
           var client = new Resource("A6918573369588", "20C93719-0DE5-8C9B-2F05-36D9BB835C02");
           var Headlist = client.Factory("headlist");
-          fnChangeMessage();
           Headlist.query({
             "filter": {
               "include": ["photoNews", "videoPointer", "fromPointer"],
@@ -557,14 +577,12 @@
               "limit": LIMIT
             }
           }, function(ret, err) {
-
-            console.log(JSON.stringify(ret));
-            ret = [{"name":"政治","id":1,"done":12,"total":100},
-                      {"name":"经济","id":2,"done":12,"total":100},
-                      {"name":"管理","id":3,"done":12,"total":100},
-                      {"name":"公文","id":4,"done":12,"total":100},
-                      {"name":"人文科技","id":5,"done":12,"total":100},
-                      {"name":"法律","id":6,"done":12,"total":100}
+            ret = [{"name":"政治","id":1,"done":12,"total":100,"hasChild":1},
+                      {"name":"经济","id":2,"done":12,"total":100,"hasChild":1},
+                      {"name":"管理","id":3,"done":12,"total":100,"hasChild":1},
+                      {"name":"公文","id":4,"done":12,"total":100,"hasChild":1},
+                      {"name":"人文科技","id":5,"done":12,"total":100,"hasChild":1},
+                      {"name":"法律","id":6,"done":12,"total":100,"hasChild":1}
                       ]
             api.hideProgress();
             api.refreshHeaderLoadDone();
@@ -577,19 +595,12 @@
               });
               return;
             }
-
-            skip += LIMIT;
-            if (ret.length < LIMIT) {
-              isEmpty = true;
-            }
-
             if (ret.length == 0) {
               return;
             }
-            if (isPull) {
-              headlist.innerHTML = dot(ret);
-            } else {
-              headlist.innerHTML += dot(ret);
+            headlist.innerHTML = dot(ret);
+            for (var i = 0; i < ret.length; i++) {
+              initSubContent(ret[i].id);
             }
           })
         }
