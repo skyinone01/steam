@@ -379,8 +379,8 @@
   <script id="template" type="text/template">
   {{~ it:data }}
   <div class="contentblock" >
-    <div class="contenticon"  tapmode onclick="getSubContent('{{= data.id }}')"></div>
-    <div class="contenttitle"  tapmode onclick="getSubContent('{{= data.id }}')">{{=data.name}}</div>
+    <div class="contenticon"  tapmode onclick="initSubContent('{{= data.id }}')"></div>
+    <div class="contenttitle"  tapmode onclick="initSubContent('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
       <div class="photo">
         <progress value="20"  max="100"></progress>
@@ -530,7 +530,8 @@
           subContent = $api.byId('subContent'+id);
           var subTemplate = $api.byId('subTemplate');
           subDot = doT.template(subTemplate.innerHTML);
-          alert(id + subContent);
+
+          getSubContent(id);
         }
         // 获取subContent
         function getSubContent(id) {
@@ -599,9 +600,7 @@
               return;
             }
             headlist.innerHTML = dot(ret);
-            for (var i = 0; i < ret.length; i++) {
-              initSubContent(ret[i].id);
-            }
+        
           })
         }
         // 下拉加载更多
