@@ -382,13 +382,13 @@
     <div class="contenticon"  tapmode onclick="initSubContent('{{= data.id }}')"></div>
     <div class="contenttitle"  tapmode onclick="initSubContent('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
-      <div class="photo">
+      <div class="photo" tapmode onclick="fnOpenTestPaper('{{= data.id }}')">
         <progress value="20"  max="100"></progress>
       </div>
       <div class="digit">{{=data.done}}/{{=data.total}}</div>
     </div>
     {{? data.hasChild==1}}
-    <div id="subContent{{data.id}}"></div>
+    <div id="subContent{{= data.id }}" style="padding-left:20px"></div>
     {{?}}
   </div>
   {{~}}
@@ -396,9 +396,9 @@
   <script id="subTemplate" type="text/template">
   {{~ it:data }}
   <div class="contentblock" >
-    <div class="contenttitle"  tapmode onclick="fnOpenContent('{{= data.id }}')">{{=data.name}}</div>
+    <div class="contenttitle"  tapmode onclick="fnOpenTestPaper('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
-      <div class="photo">
+      <div class="photo" tapmode onclick="fnOpenTestPaper('{{= data.id }}')">
         <progress value="20"  max="100"></progress>
       </div>
       <div class="digit">{{=data.done}}/{{=data.total}}</div>
@@ -492,6 +492,15 @@
       });
     };
 
+    function fnOpenTestPaper(id) {
+      api.openWin({
+        name: 'testpaper',
+        url: './testpaper.html',
+        pageParam: {
+          id: id
+        }
+      });
+    };
     function fnOpenPhotonews(id) {
       api.openWin({
         name: 'photonews',
@@ -600,7 +609,6 @@
               return;
             }
             headlist.innerHTML = dot(ret);
-        
           })
         }
         // 下拉加载更多

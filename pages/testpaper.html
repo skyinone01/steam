@@ -1,162 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
-        <title>title</title>
+        <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+        <title>test paper</title>
+        <link rel="stylesheet" type="text/css" href="../css/api.css" />
+        <style type="text/css">
+            html,
+            body {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: flex;
+                -webkit-box-orient: vertical;
+                -webkit-flex-flow: column;
+                flex-flow: column;
+                height: 100%;
+                background-color: #F8F8F8;
+            }
+
+            .nav {
+                width: 100%;
+                height: 43px;
+                background-color: #fafafa;
+                border-bottom: 1px solid #b4b4b4;
+            }
+
+            .nav .arrow {
+                float: left;
+                width: 43px;
+                height: 43px;
+                background-image: url(../image/head/arrow.png);
+                background-size: 11px 20px;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+
+            .nav .share {
+                float: right;
+                width: 43px;
+                height: 43px;
+                background-image: url(../image/head/share.png);
+                background-size: 19px 3px;
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+
+            .content {
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                flex: 1;
+            }
+        </style>
     </head>
 
     <body>
+        <div class="nav" id="nav">
+            <div class="arrow" tapmode onclick="api.closeWin();"></div>
+            <div class="share" tapmode onclick="actionMenu()"></div>
+        </div>
+        <div class="content">
+        </div>
     </body>
     <script type="text/javascript" src="../script/api.js"></script>
-    <script type="text/javascript" src="../script/SHA1.js"></script>
-    <script type="text/javascript" src="../script/request.js"></script>
-    <script type="text/javascript" src="../script/local.js"></script>
     <script type="text/javascript">
+        var dialogBox;
         apiready = function() {
-            fnInitDB();
-            fnInitPhotoNews();
-        };
-
-        var photoBrowserTouTiao, dialogBox;
-
-        function fnInitPhotoNews() {
-            photoBrowserTouTiao = api.require('photoBrowserTouTiao');
+            fnInit();
+            skipContent();
             dialogBox = api.require('dialogBox');
-            photoBrowserTouTiao.open(function(ret, err) {
-                switch (ret.eventType) {
-                    case 'show':
-                        fnGetPhotoNews();
-                        break;
-                    case 'back':
-                        api.closeWin();
-                        break;
-                    case 'favorite':
-                        fnSetFavorite();
-                        break;
-                    case 'menu':
-                    case 'share':
-                        fnOpenShare();
-                        break;
-                };
-            });
         };
+        var nav, navHeight, footHeight;
 
-        function fnOpenShare() {
-            dialogBox.actionMenu({
-                tapClose: true,
+        function fnInit() {
+            nav = $api.byId('nav');
+            $api.fixIos7Bar(nav);
+            navHeight = $api.offset(nav).h;
+        }
+
+        function skipContent() {
+            api.openFrame({
+                name: 'testpaper_frame',
+                url: './testpaper_frame.html',
+                vScrollBarEnabled: false,
+                bounces: false,
                 rect: {
-                    h: 138
+                    x: 0,
+                    y: navHeight,
+                    w: 'auto',
+                    h: api.winHeight - navHeight
+                }
+            });
+        }
+
+        function actionMenu() {
+            dialogBox.actionMenu({
+                rect: {
+                    h: 200
                 },
                 texts: {
                     cancel: '取消'
                 },
                 items: [{
                     text: '微信朋友圈',
-                    icon: 'widget://image/timeline.png'
+                    icon: 'widget://image/shouye/wk.png'
                 }, {
                     text: '微信好友',
-                    icon: 'widget://image/wx.png'
-                }, {
+                    icon: 'widget://image/shouye/wx.png'
+                },{
                     text: 'QQ好友',
-                    icon: 'widget://image/qq.png'
+                    icon: 'widget://image/shouye/qq.png'
                 }, {
                     text: 'QQ空间',
-                    icon: 'widget://image/qzone.png'
+                    icon: 'widget://image/shouye/qk.png'
+                }, {
+                    text: '微博',
+                    icon: 'widget://image/shouye/wb.png'
+                },  {
+                    text: '支付宝',
+                    icon: 'widget://image/shouye/zfb.png'
                 }],
+
                 styles: {
-                    bg: '#FFF',
+                    bg: '#f4f4f4',
+                    corner: 6,
                     column: 4,
                     itemText: {
-                        color: '#000',
-                        size: 12,
-                        marginT: 8
+                        color: '#888',
+                        size: 10,
+                        marginT: 9
                     },
                     itemIcon: {
                         size: 60
                     },
                     cancel: {
-                        color: '#888',
-                        h: 50,
-                        size: 14
+                        bg: '#f8f8f8',
+                        color: '#222',
+                        h: 48,
+                        size: 16
                     }
-                }
-            }, function(ret) {
-                if (ret.eventType == 'cancel') {
-                    dialogBox.close();
-                }
-            });
-        };
-
-        var favorite;
-
-        function fnSetFavorite() {
-            favorite = !favorite;
-            if (favorite) {
-                fnAddFavorite(api.pageParam.id, function(ret, err) {
-                    if (ret.status) {
-                        api.toast({
-                            msg: '添加收藏',
-                            duration: 2000,
-                            location: 'bottom'
-                        });
-                    }
-                });
-            } else {
-                fnRemoveFavorite(api.pageParam.id, function(ret, err) {
-                    if (ret.status) {
-                        api.toast({
-                            msg: '移除收藏',
-                            duration: 2000,
-                            location: 'bottom'
-                        });
-                    }
-                });
-            }
-        };
-
-        function fnGetPhotoNews() {
-            var filter = {
-                where: {
-                    id: api.pageParam.id
                 },
-                include: ["photoNews", "fromPointer"],
-                skip: 0,
-                limit: 1
-            };
+                tapClose: true
+            }, function(ret) {
+                if(ret.eventType=='cancel'){
+                        dialogBox.close();
+                }
 
-            fnGet('headlist', filter, function(ret, err) {
-                var headlist = ret[0];
-                fnImageCache(headlist.from.icon.url, function(ret, err) {
-                    var publisher = ret.url;
-                    fnGetFavoriteById(api.pageParam.id, function(ret, err) {
-                        favorite = ret.status && ret.data.length > 0;
-
-                        var images = [],
-                            texts = [];
-                        for (var i = 0; i < headlist.photoNews.length; i++) {
-                            images.push(headlist.photoNews[i].photo.url);
-                            texts.push(headlist.photoNews[i].news);
-                        }
-
-                        photoBrowserTouTiao.setData({
-                            images: images,
-                            texts: texts,
-                            publisher: publisher,
-                            comment: 520,
-                            favorite: favorite
-                        });
-                    });
-                });
             });
-        };
-
-        function fnImageCache(url, callback) {
-            api.imageCache({
-                url: url
-            }, callback);
-        };
+        }
     </script>
 
 </html>
