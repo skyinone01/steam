@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>headcontent</title>
+    <title>test paper frame</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style type="text/css">
         html,
@@ -14,108 +14,151 @@
             font-family: helvetica;
         }
 
-        .toutiaoBar {
-            height: 40px;
-            background-color: #fff;
-        }
-
-        .toutiaoBar img {
-            margin: 0 15px;
-            display: block;
-            height: 40px;
-        }
-
         .title {
-            margin: 0 15px;
-            padding: 10px 0;
-            display: block;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            border-bottom: solid 1px #CCCCCC;
+            display: inline-flex;
+            display: -webkit-flex;
+            background-color: #FDFFFC;
+            flex-direction:row;
+        }
+        .titlecontent{
+          font-size: 14px;
+          flex: 5;
+        }
+        .progress{
+          font-size: 14px;
+          flex: 1;
+
         }
 
-        .title h1 {
-            display: block;
-            font-size: 21px;
-            font-weight: bolder;
-            color: #000;
-            margin: 0 0 5px;
-            line-height: 26px;
-            word-wrap: break-word;
+        .content{
+          height: inherit;
+          background-color: #F7FCF4;
         }
-
-        .article {
-            margin: 0 15px;
-            line-height: 1.5em;
-            word-wrap: break-word;
-            text-align: justify;
-            overflow: hidden;
-            color: #303030;
+        .subject{
+          font-size: 15px;
+          line-height: 30px;
+          padding-left: 10px;
+          padding-right: 10px;
+          padding-top: 15px;
         }
-
-        .p {
-            word-wrap: break-word;
-            margin-top: 0;
-            text-align: justify;
-            margin-bottom: 14px;
+        .options{
+          padding-left: 10px;
+          padding-right: 10px;
         }
-
-        .collect {
-            width: 90px;
-            margin: 0 auto;
-            background-color: #FFFFFF;
-            border-radius: 23px;
-            line-height: 45px;
-            padding: 0 20px;
+        .detail{
+          display: inline-flex;
+          font-size: 15px;
+          align-content: center;
+          padding-left: 15px;
         }
-
-        .collect-img {
-            width: 45px;
-            height: 45px;
-            display: inline-block;
-            float: left;
-            background: url('../image/shouye/collect.png') center no-repeat;
+        .option1{
+          margin-top: 15px;
+          margin-bottom: 15px;
         }
-
-        .num {
-            display: inline-block;
-            float: left;
-            line-height: 45px;
+        .option2{
+          margin-top: 15px;
+          margin-bottom: 15px;
         }
-
+        .option3{
+          margin-top: 15px;
+          margin-bottom: 15px;
+        }
+        .option4{
+          margin-top: 15px;
+          margin-bottom: 15px;
+        }
+        .icon1{
+          position: relative;
+          width: 22px;
+          height: 22px;
+          background: url(../image/shouye/in.png);
+          background-size: 22px 22px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          display: inline-flex;
+          transition: 200ms;
+          top:3px;
+        }
+        .icon2{
+          position: relative;
+          width: 22px;
+          height: 22px;
+          background: url(../image/shouye/in.png);
+          background-size: 22px 22px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          display: inline-flex;
+          transition: 200ms;
+          top:3px;
+        }
+        .icon3{
+          position: relative;
+          width: 22px;
+          height: 22px;
+          background: url(../image/shouye/in.png);
+          background-size: 22px 22px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          display: inline-flex;
+          transition: 200ms;
+          top:3px;
+        }
+        .icon4{
+          position: relative;
+          width: 22px;
+          height: 22px;
+          background: url(../image/shouye/in.png);
+          background-size: 22px 22px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          display: inline-flex;
+          transition: 200ms;
+          top:3px;
+        }
     </style>
 </head>
 
 <body>
     <div class="title">
-        <h1>练习-经济</h1>
+
+      <div class="titlecontent">练习-经济</div>
+      <div class="progress">1/2</div>
+
     </div>
-    <div class="article">
-        <div id="list"></div>
-        <div class="collect">
-            <div class="collect-img"></div>
-            <div class="num">2225</div>
+    <div class="content">
+      <div class="subject">1.中国传统菜肴对于烹调方法极为讲究，而且长期以来，由于物产和风俗的差异，各地的饮食习惯和品味爱好______，______的烹调技术经过历代人民的创造，形成了丰富多彩的地方菜系。</div>
+      <div class="options">
+        <div class="option1">
+          <div class="icon1"></div>
+          <div class="detail">迥然不同 源远流长</div>
         </div>
+        <div class="option2">
+          <div class="icon2"></div>
+          <div class="detail">迥然不同 源远流长</div>
+        </div>
+        <div class="option2">
+          <div class="icon3"></div>
+          <div class="detail">迥然不同 源远流长</div>
+        </div>
+        <div class="option2">
+          <div class="icon4"></div>
+          <div class="detail">迥然不同 源远流长</div>
+        </div>
+      </div>
     </div>
 </body>
-<script type="text/template" id="template">
-    {{~ it:data }}
-     {{? null != data.text}}
-    <div class="p">
-        {{= data.text}}
-    </div>
-    {{?}} {{? null != data.image }}
-    <div class="pic">
-        <img src="{{= data.image.url }}">
-    </div>
-    {{?}} {{~}}
-</script>
+
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/doT.min.js"></script>
 <script type="text/javascript" src="../script/APICloud-rest.js"></script>
 <script type="text/javascript" src="../script/SHA1.js"></script>
 <script type="text/javascript">
     apiready = function() {
-        fnInit();
-        fnGetDate();
-        fnPaintContent();
+
     };
     var list,dot;
     function fnInit() {
@@ -140,84 +183,6 @@
     });
     }
 
-    function fnPaintContent(){
-       var UIMultiSelector = api.require('UIMultiSelector');
-       UIMultiSelector.open({
-           rect: {
-               h: 244
-           },
-           text: {
-               title: 'UIMultiSelector',
-               leftBtn: 'Cancel',
-               rightBtn: 'Finish',
-               selectAll: 'ALL'
-           },
-           max: 0,
-           singleSelection: true,
-           styles: {
-               mask: 'rgba(0,0,0,0)',
-               title: {
-                   bg: 'rgb(0,64,128)',
-                   color: 'rgb(184,209,5)',
-                   size: 16,
-                   h: 44
-               },
-               leftButton: {
-                   w: 80,
-                   h: 35,
-                   marginT: 5,
-                   marginL: 8,
-                   color: 'rgb(0,0,0)',
-                   size: 14
-               },
-               rightButton: {
-                   w: 80,
-                   h: 35,
-                   marginT: 5,
-                   marginR: 8,
-                   color: 'rgb(0,0,0)',
-                   size: 14
-               },
-               item: {
-                   h: 35,
-                   bg: 'rgb(121,82,173)',
-                   bgActive: 'rgb(43,213,166)',
-                   bgHighlight: 'rgb(238,17,150)',
-                   color: 'rgb(22,112,233)',
-                   active: 'rgb(201,118,126)',
-                   highlight: 'rgb(255,255,0)',
-                   size: 14,
-                   lineColor: 'rgb(78,57,255)',
-                   textAlign: 'center'
-               },
-               icon: {
-                   w: 20,
-                   h: 20,
-                   marginT: 11,
-                   marginH: 8,
-                   bg: '#fff',
-                   align: 'left'
-               }
-           },
-           animation: true,
-           items: [{
-                       text: 'Monday',
-                       status: 'normal'
-                   }, {
-                       text: 'Tuesday',
-                       status: 'normal'
-                   }, {
-                       text: 'Wednesday',
-                       status: 'normal'
-                   }]
-               }, function(ret, err) {
-                   if (ret) {
-                       alert(JSON.stringify(ret));
-                   } else {
-                       alert(JSON.stringify(err));
-                   }
-               });
-    }
 
 </script>
 
