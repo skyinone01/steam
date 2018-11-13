@@ -24,7 +24,7 @@
       font-size: 16px;
       color: #444;
       padding-top: 15px;
-      padding-bottom: 21px;
+      padding-bottom: 5px;
     }
 
     .content .text2 {
@@ -44,14 +44,22 @@
 
     .content .section1 {
       width: 100%;
-      height: 114px;
+      height: 130px;
       position: relative;
       box-sizing: border-box;
       background-color: #FFFFFF;
+      padding-left: 135px;
+    }
+    .content .img {
+      position: absolute;
+      left: 3px;
+      top: 10px;
+      width: 123px;
+      float: right;
     }
 
-    .content .section1 .from {
-      float: left;
+    .content .img img {
+      width: 120px;
     }
 
     em {
@@ -67,6 +75,7 @@
   {{~ it:data }} {{? data.type==0}}
   <div class="content" tapmode onclick="fnOpenContent('{{= data.id }}')">
     <div class="section1">
+      <div class="img"><img src="../image/default1.jpg" id="thumbnail0_{{=data.id}}"></div>
       <div class="from">
         <div class="text">{{=data.name}}</div>
         <div>
@@ -77,7 +86,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
     {{?}} {{~}}
