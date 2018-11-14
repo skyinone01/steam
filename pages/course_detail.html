@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>course detail</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            font-family: helvetica;
+        }
+        .nav {
+            width: 100%;
+            height: 43px;
+            background-color: #66ccff;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .nav .arrow {
+            float: left;
+            width: 43px;
+            height: 43px;
+            background-image: url(../image/head/arrow.png);
+            background-size: 11px 20px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            display: inline-flex;
+        }
+
+        .nav .share {
+            width: 43px;
+            height: 43px;
+            background-image: url(../image/head/share.png);
+            background-size: 19px 3px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            float: right;
+            display: inline-flex;
+        }
+        .nav .titlecontent{
+            width: 96px;
+            height: 43px;
+            font-size: 20px;
+            display: inline-flex;
+            margin:0 auto;
+        }
+
+        .content{
+          height: inherit;
+          background-color: #F7FCF4;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="nav" id="nav">
+        <div class="arrow" tapmode onclick="api.closeWin();"></div>
+        <div class="titlecontent">课程详情</div>
+        <div class="share" tapmode onclick="actionMenu()"></div>
+    </div>
+    <div id="content" class="content">
+    </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest.js"></script>
+<script type="text/javascript" src="../script/SHA1.js"></script>
+<script id="template" type="text/template">
+  <div class="subject">{{= it.subject}}</div>
+  <div class="options">
+    <div class="option1" tapmode onclick="fnOpenOne('{{= it.id }}','A')">
+      <div class="icon1"></div>
+      <div class="detail">{{= it.option1}}</div>
+    </div>
+    <div class="option2" tapmode onclick="fnOpenOne('{{= it.id }}','B')">
+      <div class="icon2"></div>
+      <div class="detail">{{= it.option2}}</div>
+    </div>
+    <div class="option2" tapmode onclick="fnOpenOne('{{= it.id }}','C')">
+      <div class="icon3"></div>
+      <div class="detail">{{= it.option3}}</div>
+    </div>
+    <div class="option2" tapmode onclick="fnOpenOne('{{= it.id }}','D')">
+      <div class="icon4"></div>
+      <div class="detail">{{= it.option4}}</div>
+    </div>
+  </div>
+</script>
+<script type="text/javascript">
+    var content,dot,max,min,current,navHeight;
+    apiready = function() {
+      initEventListenner();
+      navHeight = api.pageParam.navHeight;
+      current = api.pageParam.current;
+      max =10, min =1;
+      fnInit();
+      fnGetData(current,max);
+    };
+    function initEventListenner(){
+      api.addEventListener({
+          name:'swipeleft'
+      }, function(ret, err){
+         fnSwipeLeft();
+      });
+
+      api.addEventListener({
+          name:'swiperight'
+      }, function(ret, err){
+         fnSwipeRight();
+      });
+    }
+
+    function openContent(current){
+      api.openFrame({
+          name: 'testpaper_frame',
+          url: './testpaper_frame.html',
+          vScrollBarEnabled: false,
+          bounces: false,
+          reload: true,
+          rect: {
+              x: 0,
+              y: navHeight,
+              w: 'auto',
+              h: api.winHeight - navHeight
+          },
+          pageParam: {
+              current: current,
+              navHeight: navHeight
+          }
+      });
+    }
+
+    function fnSwipeRight(){
+      if (current == 1 ) {
+        return;
+      }
+      current = current-1;
+      openContent(current);
+    }
+    function fnSwipeLeft(){
+      if (current == max ) {
+        return;
+      }
+      current = current + 1;
+      openContent(current);
+    }
+
+    function fnInit() {
+        content = $api.byId('content');
+        var template = $api.byId('template');
+        dot = doT.template(template.innerHTML);
+    }
+
+    function fnGetData(current, max) {
+        var client = new Resource("A6918573369588", "20C93719-0DE5-8C9B-2F05-36D9BB835C02");
+        var headList = client.Factory("headlist");
+
+        headList.query({
+           "filter": {
+            "include": ["content"],
+            "where": {"type":2},
+            "skip": 0,
+            "limit": 20
+        }
+    }, function(ret, err) {
+        ret = {"subject":"1.中国传统菜肴对于烹调方法极为讲究，而且长期以来，由于物产和风俗的差异，各地的饮食习惯和品味爱好______，______的烹调技术经过历代人民的创造，形成了丰富多彩的地方菜系。",
+        "option1":1,"option2":12,"option3":100,"option4":1,"id":1}
+        content.innerHTML= dot(ret);
+    });
+    }
+
+    function fnOpenOne(id, option){
+        alert(id+option);
+    }
+
+
+</script>
+
+</html>

@@ -153,27 +153,29 @@
         -webkit-box-flex: 1;
         background-color: #FBFBFB;
     }
-
+    .control{
+        display: none;
+    }
 
     </style>
 </head>
 
 <body>
     <header id="header">
-        <div class="right" tapmode onclick="fnOpenCitySelectorFrame();">
+        <div id="headright" class="right" tapmode onclick="fnOpenCitySelectorFrame();">
             <div class="arrow" id="arrow"></div>
             <div class="city" id="city">北京市</div>
         </div>
         <!-- <div class="center"></div> -->
-        <div class="left" ><font style="font-size:30px; ">练习</font></div>
+        <div class="left" ><font style="font-size:30px;" id="headtitle">练习</font></div>
     </header>
     <section class="content">
     </section>
     <footer id="footer" class="footer">
-        <div class="footermenu home active " tapmode="active" onclick="fnChange(0)">练习</div>
-        <div class="footermenu video" tapmode="active" onclick="fnChange(1)">课堂</div>
-        <div class="footermenu gambit" tapmode="active" onclick="fnChange(2)">发现</div>
-        <div class="footermenu my" tapmode="active" onclick="fnChange(3)">我的</div>
+        <div class="footermenu home active " tapmode="active" onclick="fnChange(0,'练习')">练习</div>
+        <div class="footermenu video" tapmode="active" onclick="fnChange(1,'课堂')">课堂</div>
+        <div class="footermenu gambit" tapmode="active" onclick="fnChange(2,'发现')">发现</div>
+        <div class="footermenu my" tapmode="active" onclick="fnChange(3,'我的')">我的</div>
     </footer>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
@@ -206,12 +208,18 @@ apiready = function() {
 
     // 打开首页的所有Frames
     // openFrames();
-    fnChange(0)
+    fnChange(0,"练习")
 
 
 };
 
-function fnChange(index) {
+function fnChange(index, title) {
+    if (index != 0) {
+      $api.addCls($api.byId('headright'),'control');
+    }else{
+      $api.removeCls($api.byId('headright'),'control');
+    }
+    $api.byId("headtitle").innerHTML =title;
     for (var i = 0; i < footermenus.length; i++) {
         if (index == i) {
             $api.addCls(footermenus[i], 'active');
