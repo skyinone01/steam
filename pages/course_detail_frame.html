@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>course detail</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            font-family: helvetica;
+            background-color: #F4F7F2;
+        }
+        .title{
+          margin-top: 10px;
+          margin-bottom: 10px;
+          background-color: #FFFFFF;
+        }
+        .title .coursename {
+          line-height: 22px;
+          font-size: 14px;
+          color: #444;
+          padding-top: 13px;
+          padding-bottom: 13px;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
+        .title .courselable {
+          height: 22px;
+          line-height: 19px;
+          font-size: 10px;
+          color: #888;
+          box-sizing: border-box;
+          padding-left: 23px;
+          position: relative;
+        }
+
+        .detail{
+          height: inherit;
+          background-color: #FFFFFF;
+        }
+        .tabtitle{
+          border-bottom: 1px solid #CCCCCC;
+          height: 40px;
+        }
+        .tabtitle1{
+          color: #66ccff;
+          float: left;
+          font-size: 16px;
+          padding-top: 12px;
+          padding-bottom:6px;
+          margin-left: 10px;
+          border-bottom: 2px solid #66ccff;
+        }
+        .tabtitle2{
+          color: #66ccff;
+          float: left;
+          font-size: 16px;
+          padding-top: 12px;
+          padding-bottom:6px;
+          margin-left: 50px;
+          border-bottom: 2px solid #66ccff;
+        }
+        .tabtitle3{
+          color: #66ccff;
+          float: right;
+          font-size: 16px;
+          padding-top: 12px;
+        }
+        .tabdetail{
+
+        }
+        .buybutton{
+          height: 50px;
+          border-top: 1px solid #CCCCCC;
+          bottom: 0;
+          position: fixed;
+          width: 100%;
+        }
+        .buybuttonleft{
+          height: 50px;
+          float: left;
+          width: 72%;
+        }
+        .buybuttonright{
+          height: 50px;
+          float: right;
+          width: 28%;
+          background-color: #E0511D;
+        }
+        .buy{
+          font-size: 18px;
+          color: #FFF;
+          text-align: center;
+          margin-top: 16px;
+        }
+       .text3 {
+          display: inline-flex;
+          color: #E0511D;
+          font-size: 18px;
+          position: relative;
+          padding-left: 15px;
+          margin-top: 16px
+        }
+    </style>
+</head>
+
+<body>
+  <div>
+    <div class="title">
+      <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期（看看部分回放，11月28日中午12点上调至980元）</div>
+      <div class="courselable">
+        <em>已购买</em>
+        <em>30课时</em>
+      </div>
+    </div>
+    <div class="detail">
+      <div class="tabtitle">
+        <div class="tabtitle1">课程介绍</div>
+        <div class="tabtitle2">课程列表</div>
+        <div class="tabtitle3"></div>
+      </div>
+      <div class="tabdetail"></div>
+    </div>
+    <div class="buybutton">
+      <div class="buybuttonleft">
+        <div class="text3">￥888元</div>
+      </div>
+      <div class="buybuttonright"><div class="buy">购买</div></div>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest.js"></script>
+<script type="text/javascript" src="../script/SHA1.js"></script>
+<script type="text/javascript">
+    var content,dot,max,min,current,navHeight;
+    apiready = function() {
+      initEventListenner();
+      navHeight = api.pageParam.navHeight;
+      current = api.pageParam.current;
+      max =10, min =1;
+      // fnInit();
+      // fnGetData(current,max);
+    };
+    function initEventListenner(){
+      api.addEventListener({
+          name:'swipeleft'
+      }, function(ret, err){
+         fnSwipeLeft();
+      });
+
+      api.addEventListener({
+          name:'swiperight'
+      }, function(ret, err){
+         fnSwipeRight();
+      });
+    }
+
+    function openContent(current){
+      api.openFrame({
+          name: 'testpaper_frame',
+          url: './testpaper_frame.html',
+          vScrollBarEnabled: false,
+          bounces: false,
+          reload: true,
+          rect: {
+              x: 0,
+              y: navHeight,
+              w: 'auto',
+              h: api.winHeight - navHeight
+          },
+          pageParam: {
+              current: current,
+              navHeight: navHeight
+          }
+      });
+    }
+
+    function fnSwipeRight(){
+      if (current == 1 ) {
+        return;
+      }
+      current = current-1;
+      openContent(current);
+    }
+    function fnSwipeLeft(){
+      if (current == max ) {
+        return;
+      }
+      current = current + 1;
+      openContent(current);
+    }
+
+    function fnInit() {
+        content = $api.byId('content');
+        var template = $api.byId('template');
+        dot = doT.template(template.innerHTML);
+    }
+
+    function fnGetData(current, max) {
+        var client = new Resource("A6918573369588", "20C93719-0DE5-8C9B-2F05-36D9BB835C02");
+        var headList = client.Factory("headlist");
+
+        headList.query({
+           "filter": {
+            "include": ["content"],
+            "where": {"type":2},
+            "skip": 0,
+            "limit": 20
+        }
+    }, function(ret, err) {
+        ret = {"subject":"1.中国传统菜肴对于烹调方法极为讲究，而且长期以来，由于物产和风俗的差异，各地的饮食习惯和品味爱好______，______的烹调技术经过历代人民的创造，形成了丰富多彩的地方菜系。",
+        "option1":1,"option2":12,"option3":100,"option4":1,"id":1}
+        content.innerHTML= dot(ret);
+    });
+    }
+
+    function fnOpenOne(id, option){
+        alert(id+option);
+    }
+
+
+</script>
+
+</html>
