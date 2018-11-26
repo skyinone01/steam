@@ -48,21 +48,25 @@
           height: 40px;
         }
         .tabtitle1{
-          color: #66ccff;
           float: left;
           font-size: 16px;
           padding-top: 12px;
           padding-bottom:6px;
           margin-left: 10px;
+        }
+        .tabtitle1.active{
+          color: #66ccff;
           border-bottom: 2px solid #66ccff;
         }
         .tabtitle2{
-          color: #66ccff;
           float: left;
           font-size: 16px;
           padding-top: 12px;
           padding-bottom:6px;
           margin-left: 50px;
+        }
+        .tabtitle2.active{
+          color: #66ccff;
           border-bottom: 2px solid #66ccff;
         }
         .tabtitle3{
@@ -120,8 +124,8 @@
     </div>
     <div class="detail">
       <div class="tabtitle">
-        <div class="tabtitle1">课程介绍</div>
-        <div class="tabtitle2">课程列表</div>
+        <div class="tabtitle1 active" id="tabtitle1" onclick="openTab(1)">课程介绍</div>
+        <div class="tabtitle2" id="tabtitle2" onclick="openTab(2)">课程列表</div>
         <div class="tabtitle3"></div>
       </div>
       <div class="tabdetail"></div>
@@ -130,7 +134,7 @@
       <div class="buybuttonleft">
         <div class="text3">￥888元</div>
       </div>
-      <div class="buybuttonright"><div class="buy">购买</div></div>
+      <div class="buybuttonright" onclick="buyCourse()"><div class="buy">购买</div></div>
     </div>
   </div>
 </body>
@@ -143,12 +147,20 @@
     var content,dot,max,min,current,navHeight;
     apiready = function() {
       initEventListenner();
-      navHeight = api.pageParam.navHeight;
-      current = api.pageParam.current;
-      max =10, min =1;
       // fnInit();
       // fnGetData(current,max);
+      // openTab(1);
     };
+    function openTab(index){
+      if(index == 1){
+        $api.addCls($api.byId('tabtitle1'),'active');
+        $api.removeCls($api.byId('tabtitle2'),'active')
+      }else if(index == 2){
+        $api.removeCls($api.byId('tabtitle1'),'active');
+        $api.addCls($api.byId('tabtitle2'),'active')
+      }
+
+    }
     function initEventListenner(){
       api.addEventListener({
           name:'swipeleft'
