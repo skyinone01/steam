@@ -46,6 +46,7 @@
         .tabtitle{
           border-bottom: 1px solid #CCCCCC;
           height: 40px;
+          position: fixed;
         }
         .tabtitle1{
           float: left;
@@ -76,66 +77,67 @@
           padding-top: 12px;
         }
         .tabdetail{
+          height:
+        }
+        .courseintro{
 
         }
-        .buybutton{
-          height: 50px;
-          border-top: 1px solid #CCCCCC;
-          bottom: 0;
-          position: fixed;
-          width: 100%;
+        .courseintro.deactive{
+          display: none;
         }
-        .buybuttonleft{
-          height: 50px;
-          float: left;
-          width: 72%;
+        .courselist{
+
         }
-        .buybuttonright{
-          height: 50px;
-          float: right;
-          width: 28%;
-          background-color: #E0511D;
+        .courselist.deactive{
+          display: none;
         }
-        .buy{
-          font-size: 18px;
-          color: #FFF;
-          text-align: center;
-          margin-top: 16px;
+        .course1{
+          font-size: 16px;
+          color: #56AAFF;
+          display: flex;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          margin-left: 20px;
         }
-       .text3 {
-          display: inline-flex;
-          color: #E0511D;
-          font-size: 18px;
-          position: relative;
-          padding-left: 15px;
-          margin-top: 16px
-        }
+
+
     </style>
 </head>
 
 <body>
   <div>
-    <div class="title">
-      <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期（看看部分回放，11月28日中午12点上调至980元）</div>
-      <div class="courselable">
-        <em>已购买</em>
-        <em>30课时</em>
+      <div class="detail">
+        <div class="tabtitle" id="tabtitle">
+          <div class="tabtitle1 active" id="tabtitle1" onclick="openTab(1)">课程介绍</div>
+          <div class="tabtitle2" id="tabtitle2" onclick="openTab(2)">课程列表</div>
+          <div class="tabtitle3"></div>
+        </div>
+        <div class="tabdetail">
+          <div class="courseintro" id="courseintro">
+            <div class="title" id="title">
+              <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期（看看部分回放，11月28日中午12点上调至980元）</div>
+              <div class="courselable">
+                <em>已购买</em>
+                <em>30课时</em>
+              </div>
+            </div>
+          </div>
+          <div class="courselist deactive" id="courselist">
+            <div class="course1" onclick="openOne(1)">第一课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第二课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第三课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第一课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第二课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第三课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第一课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第二课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第三课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第一课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第二课 基础经济知识</div>
+            <div class="course1" onclick="openOne(1)">第三课 基础经济知识</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="detail">
-      <div class="tabtitle">
-        <div class="tabtitle1 active" id="tabtitle1" onclick="openTab(1)">课程介绍</div>
-        <div class="tabtitle2" id="tabtitle2" onclick="openTab(2)">课程列表</div>
-        <div class="tabtitle3"></div>
-      </div>
-      <div class="tabdetail"></div>
-    </div>
-    <div class="buybutton">
-      <div class="buybuttonleft">
-        <div class="text3">￥888元</div>
-      </div>
-      <div class="buybuttonright" onclick="buyCourse()"><div class="buy">购买</div></div>
-    </div>
   </div>
 </body>
 
@@ -144,20 +146,28 @@
 <script type="text/javascript" src="../script/APICloud-rest.js"></script>
 <script type="text/javascript" src="../script/SHA1.js"></script>
 <script type="text/javascript">
-    var content,dot,max,min,current,navHeight;
+    var content,dot,max,min,current,navHeight,videoPlayer;;
     apiready = function() {
+      videoPlayer = api.require('videoPlayer');
       initEventListenner();
       // fnInit();
       // fnGetData(current,max);
       // openTab(1);
     };
+
     function openTab(index){
       if(index == 1){
         $api.addCls($api.byId('tabtitle1'),'active');
         $api.removeCls($api.byId('tabtitle2'),'active')
+
+        $api.addCls($api.byId('courselist'),'deactive');
+        $api.removeCls($api.byId('courseintro'),'deactive')
       }else if(index == 2){
         $api.removeCls($api.byId('tabtitle1'),'active');
         $api.addCls($api.byId('tabtitle2'),'active')
+
+        $api.addCls($api.byId('courseintro'),'deactive');
+        $api.removeCls($api.byId('courselist'),'deactive')
       }
 
     }
@@ -234,10 +244,31 @@
     });
     }
 
-    function fnOpenOne(id, option){
-        alert(id+option);
-    }
+    function openOne(id) {
+        var videoPlayer = api.require('videoPlayer');
+        videoPlayer.play({
+            texts: {
+                head: {
+                    title: '视频'
+                }
+            },
+            styles: {
+                head: {
+                    bg: 'rgba(0.5,0.5,0.5,0.7)',
+                    height: 44,
+                    titleSize: 16,
+                    titleColor: '#fff',
+                    backSize: 20,
+                    backImg: 'fs://img/back.png',
+                    setSize: 20,
+                    setImg: 'fs://img/set.png'
+                },
 
+            },
+            path: 'http://resource.apicloud.com/video/apicloud3.mp4',
+            autoPlay: true
+        });
+    }
 
 </script>
 

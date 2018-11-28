@@ -60,7 +60,48 @@
                 -webkit-flex: 1;
                 flex: 1;
             }
-            
+            .buybutton{
+              height: 50px;
+              border-top: 1px solid #CCCCCC;
+              bottom: 0;
+              position: fixed;
+              width: 100%;
+            }
+            .buybuttonleft{
+              height: 50px;
+              float: left;
+              width: 72%;
+            }
+            .buybuttonright{
+              height: 50px;
+              float: right;
+              width: 28%;
+              background-color: #E0511D;
+            }
+            .buy{
+              font-size: 18px;
+              color: #FFF;
+              text-align: center;
+              margin-top: 16px;
+            }
+            .text3 {
+               display: inline-flex;
+               color: #E0511D;
+               font-size: 18px;
+               position: relative;
+               padding-left: 15px;
+               margin-top: 16px
+             }
+             .section {
+                 width: 100%;
+                 position: fixed;
+             }
+
+             .pic img {
+                 width: 100%;
+                 display: block;
+                 margin: 0 auto;
+             }
         </style>
     </head>
 
@@ -70,7 +111,18 @@
             <div class="titlecontent">课程详情</div>
             <div class="share" tapmode onclick="actionMenu()"></div>
         </div>
+        <div class="section" id="courseplay">
+            <div class="pic" tapmode onclick="openOne(1)">
+                <img src="../image/video/video2.png" alt="">
+            </div>
+        </div>
         <div class="content">
+        </div>
+        <div class="buybutton" id="buybutton">
+          <div class="buybuttonleft">
+            <div class="text3">￥888元</div>
+          </div>
+          <div class="buybuttonright" onclick="buyCourse()"><div class="buy">购买</div></div>
         </div>
     </body>
     <script type="text/javascript" src="../script/api.js"></script>
@@ -81,12 +133,16 @@
             skipContent();
             dialogBox = api.require('dialogBox');
         };
-        var nav, navHeight, footHeight;
+        var nav, navHeight, footHeight, buybutton, courseplay, buybuttonHeight, courseplayHeight;
 
         function fnInit() {
             nav = $api.byId('nav');
+            buybutton = $api.byId('buybutton');
+            courseplay = $api.byId('courseplay');
             $api.fixIos7Bar(nav);
             navHeight = $api.offset(nav).h;
+            buybuttonHeight = $api.offset(buybutton).h;
+            courseplayHeight = $api.offset(courseplay).h;
         }
 
         function skipContent() {
@@ -97,9 +153,9 @@
                 bounces: false,
                 rect: {
                     x: 0,
-                    y: navHeight,
+                    y: navHeight+courseplayHeight,
                     w: 'auto',
-                    h: api.winHeight - navHeight
+                    h: api.winHeight - navHeight - buybuttonHeight - courseplayHeight
                 },
                 pageParam: {
                     current: 1,
@@ -107,7 +163,9 @@
                 }
             });
         }
+        function buyCourse() {
 
+        }
         function actionMenu() {
             dialogBox.actionMenu({
                 rect: {
