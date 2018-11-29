@@ -92,16 +92,7 @@
                padding-left: 15px;
                margin-top: 16px
              }
-             .section {
-                 width: 100%;
-                 position: fixed;
-             }
 
-             .pic img {
-                 width: 100%;
-                 display: block;
-                 margin: 0 auto;
-             }
         </style>
     </head>
 
@@ -110,11 +101,6 @@
             <div class="arrow" tapmode onclick="api.closeWin();"></div>
             <div class="titlecontent">课程详情</div>
             <div class="share" tapmode onclick="actionMenu()"></div>
-        </div>
-        <div class="section" id="courseplay">
-            <div class="pic" tapmode onclick="openOne(1)">
-                <img src="../image/video/video2.png" alt="">
-            </div>
         </div>
         <div class="content">
         </div>
@@ -133,7 +119,7 @@
             skipContent();
             dialogBox = api.require('dialogBox');
         };
-        var nav, navHeight, footHeight, buybutton, courseplay, buybuttonHeight, courseplayHeight;
+        var nav, navHeight, footHeight, buybutton, courseplay, buybuttonHeight;
 
         function fnInit() {
             nav = $api.byId('nav');
@@ -142,7 +128,6 @@
             $api.fixIos7Bar(nav);
             navHeight = $api.offset(nav).h;
             buybuttonHeight = $api.offset(buybutton).h;
-            courseplayHeight = $api.offset(courseplay).h;
         }
 
         function skipContent() {
@@ -153,9 +138,9 @@
                 bounces: false,
                 rect: {
                     x: 0,
-                    y: navHeight+courseplayHeight,
+                    y: navHeight,
                     w: 'auto',
-                    h: api.winHeight - navHeight - buybuttonHeight - courseplayHeight
+                    h: api.winHeight - navHeight - buybuttonHeight
                 },
                 pageParam: {
                     current: 1,
