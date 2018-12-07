@@ -28,7 +28,6 @@
           padding-left: 10px;
           padding-right: 10px;
         }
-
         .title .courselable {
           height: 22px;
           line-height: 19px;
@@ -36,18 +35,16 @@
           color: #888;
           box-sizing: border-box;
           padding-left: 23px;
-          position: relative;
         }
-
         .detail{
           height: inherit;
           background-color: #FFFFFF;
-          top: 450px;
           width: 100%;
         }
         .tabtitle{
           border-bottom: 1px solid #CCCCCC;
           height: 40px;
+          z-index: 2;
         }
         .tabtitle1{
           float: left;
@@ -78,7 +75,8 @@
           padding-top: 12px;
         }
         .tabdetail{
-
+          position: relative;
+          z-index: 0;
         }
         .courseintro{
           width: 100%;
@@ -97,43 +95,35 @@
           color: #56AAFF;
           display: flex;
           margin-top: 10px;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
           margin-left: 20px;
-        }
-        .courseplay {
-            width: 100%;
-        }
-
-        .pic img {
-            width: 100%;
-            display: block;
-            margin: 0 auto;
+          padding-top: 10px;
         }
         .headerfixed{
-          /*position: fixed;*/
+
         }
     </style>
 </head>
 
 <body>
   <div style="width:100%">
-      <div class="headerfixed">
-        <div class="courseplay" id="courseplay">
-            <div class="pic" tapmode onclick="openOne(1)">
-                <img src="../image/video/video2.png" alt="">
-            </div>
+      <div class="title" id="title">
+        <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期 （看看部分回放，11月28日中午12点上调至980元）</div>
+        <div class="courselable">
+          <em>已购买</em>
+          <em>30课时</em>
         </div>
+      </div>
+      <div class="detail">
         <div class="tabtitle" id="tabtitle">
           <div class="tabtitle1 active" id="tabtitle1" onclick="openTab(1)">课程介绍</div>
           <div class="tabtitle2" id="tabtitle2" onclick="openTab(2)">课程列表</div>
           <div class="tabtitle3"></div>
         </div>
-      </div>
-      <div class="detail">
         <div class="tabdetail">
           <div class="courseintro" id="courseintro">
             <div class="title" id="title">
-              <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期（看看部分回放，11月28日中午12点上调至980元）</div>
+              <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期 （看看部分回放，11月28日中午12点上调至980元）</div>
               <div class="courselable">
                 <em>已购买</em>
                 <em>30课时</em>
@@ -170,7 +160,7 @@
       initEventListenner();
       // fnInit();
       // fnGetData(current,max);
-      // openTab(1);
+      // openOne(1);
     };
 
     function openTab(index){
@@ -263,17 +253,37 @@
     }
 
     function openOne(id) {
-        var videoPlayer = api.require('videoPlayer');
-        videoPlayer.open({
-            rect:{
-                y:60,
-                h:450
-            },
-            autoPlay: true,
-            path: 'http://resource.apicloud.com/video/apicloud3.mp4'
-        });
-    }
+      var videoPlayer = api.require('videoPlayer');
+      videoPlayer.play({
+          texts: {
+              head: {
+                  title: '顶部文字'
+              }
+          },
+          styles: {
+              head: {
+                  bg: 'rgba(0.5,0.5,0.5,0.7)',
+                  height: 44,
+                  titleSize: 16,
+                  titleColor: '#fff',
+                  backSize: 20,
+                  backImg: 'widget://image/back.png',
+                  setSize: 20,
+                  setImg: 'widget://image/set.png'
+              },
 
+          },
+          path: 'http://resource.apicloud.com/video/apicloud3.mp4',
+          autoPlay:true
+      },function(ret, err) {
+           alert(JSON.stringify(ret));
+          if (ret) {
+              alert(JSON.stringify(ret));
+          } else {
+              alert(JSON.stringify(err));
+          }
+      });
+    }
 </script>
 
 </html>
