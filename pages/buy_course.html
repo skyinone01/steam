@@ -48,78 +48,55 @@
             text-align: center;
             margin-top: 11px;
         }
-        .title{
-          margin-top: 10px;
-          margin-bottom: 10px;
+        .block{
           background-color: #FFFFFF;
         }
-        .title .coursename {
+        .block .address{
+          float: left;
+          background-color: #FFFFFF;
+          width: 85%;
+        }
+        .name {
           line-height: 22px;
-          font-size: 14px;
+          font-size: 16px;
           color: #444;
           padding-top: 13px;
           padding-bottom: 13px;
-          padding-left: 10px;
+          padding-left: 20px;
           padding-right: 10px;
         }
-        .title .courselable {
+        .location {
           height: 22px;
           line-height: 19px;
-          font-size: 10px;
+          font-size: 16px;
           color: #888;
           box-sizing: border-box;
-          padding-left: 23px;
+          padding-left: 20px;
+          padding-right: 10px;
         }
-        .detail{
-          height: inherit;
-          background-color: #FFFFFF;
-          width: 100%;
-        }
-        .tabtitle{
-          border-bottom: 1px solid #CCCCCC;
-          height: 40px;
-          z-index: 2;
-        }
-        .tabtitle1{
-          float: left;
-          font-size: 16px;
-          padding-top: 12px;
-          padding-bottom:6px;
-          margin-left: 10px;
-        }
-        .tabtitle1.active{
-          color: #66ccff;
-          border-bottom: 2px solid #66ccff;
-        }
-        .tabtitle2{
-          float: left;
-          font-size: 16px;
-          padding-top: 12px;
-          padding-bottom:6px;
-          margin-left: 50px;
-        }
-        .tabtitle2.active{
-          color: #66ccff;
-          border-bottom: 2px solid #66ccff;
-        }
-        .tabtitle3{
-          color: #66ccff;
+        .block .selectaddress{
           float: right;
-          font-size: 16px;
-          padding-top: 12px;
+          width: 15%;
+          height: 70px;
+          background-image: url(../image/head/arrow.png);
+          background-size: 11px 20px;
+          background-repeat: no-repeat;
+          background-position: center center;
+          background-color: #FFFFFF;
         }
-        .tabdetail{
-          position: relative;
-          z-index: 0;
+        .profile{
+          background-color: #FFFFFF;
+          padding-top: 20px;
+          padding-bottom: 10px;
+          margin-top: 20px;
         }
-        .courseintro{
-          width: 100%;
+        .profilecontent{
+          background-color: #FFFFFF;
+          width: 85%;
         }
-        .courseintro.deactive{
-          display: none;
-        }
-        .headerfixed{
-
+        .profileprice{
+          background-color: #FFFFFF;
+          width: 15%;
         }
         .buybutton{
           height: 50px;
@@ -158,42 +135,24 @@
 
 <body>
   <div style="width:100%">
-    <div class="nav" id="nav">
-        <div class="arrow" tapmode onclick="api.closeWin();"></div>
-        <div class="titlecontent">确认订单</div>
-        <div class="share" tapmode onclick="actionMenu()"></div>
-    </div>
+      <div class="nav" id="nav">
+          <div class="arrow" tapmode onclick="api.closeWin();"></div>
+          <div class="titlecontent">确认订单</div>
+          <div class="share" tapmode onclick="actionMenu()"></div>
+      </div>
+      <div class="block">
+        <div class="address">
+          <div class="name">姓名 13883136551</div>
+          <div class="location">重庆市 重庆市 南岸区 海棠路33号</div>
+        </div>
+        <div class="selectaddress"> </div>
+      </div>
 
-      <div class="title" id="title">
-        <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期 （看看部分回放，11月28日中午12点上调至980元）</div>
-        <div class="courselable">
-          <em>已购买</em>
-          <em>30课时</em>
-        </div>
+      <div class="profile">
+        <div class="profilecontent">【最后一期】国考笔试系统班图书大礼包：2019年国考14期</div>
+        <div class="profileprice">￥888元</div>
       </div>
-      <div class="title" id="title">
-        <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期 （看看部分回放，11月28日中午12点上调至980元）</div>
-        <div class="courselable">
-          <em>已购买</em>
-          <em>30课时</em>
-        </div>
-      </div>
-      <div class="detail">
-        <div class="tabtitle" id="tabtitle">
-          <div class="tabtitle1 active" id="tabtitle1" onclick="openTab(1)">课程介绍</div>
-        </div>
-        <div class="tabdetail">
-          <div class="courseintro" id="courseintro">
-            <div class="title" id="title">
-              <div class="coursename">【最后一期】国考笔试系统班图书大礼包：2019年国考14期 （看看部分回放，11月28日中午12点上调至980元）</div>
-              <div class="courselable">
-                <em>已购买</em>
-                <em>30课时</em>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class="buybutton" id="buybutton">
         <div class="buybuttonleft">
           <div class="text3">合计：￥888元</div>
@@ -324,35 +283,7 @@
           }
       });
     }
-    function openOne(id) {
-      var videoPlayer = api.require('videoPlayer');
-      videoPlayer.play({
-          texts: {
-              head: {
-                  title: '顶部文字'
-              }
-          },
-          styles: {
-              head: {
-                  bg: 'rgba(0.5,0.5,0.5,0.7)',
-                  height: 44,
-                  titleSize: 16,
-                  titleColor: '#fff',
-                  backSize: 20,
-                  backImg: 'widget://image/back.png',
-                  setSize: 20,
-                  setImg: 'widget://image/set.png'
-              },
 
-          },
-          path: 'http://resource.apicloud.com/video/apicloud3.mp4',
-          autoPlay:true
-      },function(ret, err) {
-
-      });
-
-
-    }
 </script>
 
 </html>

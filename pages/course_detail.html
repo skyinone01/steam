@@ -61,6 +61,38 @@
                 flex: 1;
             }
 
+            .buybutton{
+              height: 50px;
+              border-top: 1px solid #CCCCCC;
+              bottom: 0;
+              position: fixed;
+              width: 100%;
+            }
+            .buybuttonleft{
+              height: 50px;
+              float: left;
+              width: 72%;
+            }
+            .buybuttonright{
+              height: 50px;
+              float: right;
+              width: 28%;
+              background-color: #E0511D;
+            }
+            .buy{
+              font-size: 18px;
+              color: #FFF;
+              text-align: center;
+              margin-top: 16px;
+            }
+            .text3 {
+               display: inline-flex;
+               color: #E0511D;
+               font-size: 18px;
+               position: relative;
+               padding-left: 15px;
+               margin-top: 16px
+             }
         </style>
     </head>
 
@@ -72,7 +104,12 @@
         </div>
         <div class="content">
         </div>
-
+        <div class="buybutton" id="buybutton">
+          <div class="buybuttonleft">
+            <div class="text3">￥888元</div>
+          </div>
+          <div class="buybuttonright" onclick="buyCourse()"><div class="buy">购买</div></div>
+        </div>
     </body>
     <script type="text/javascript" src="../script/api.js"></script>
     <script type="text/javascript">
@@ -86,11 +123,11 @@
 
         function fnInit() {
             nav = $api.byId('nav');
-            // buybutton = $api.byId('buybutton');
+            buybutton = $api.byId('buybutton');
             courseplay = $api.byId('courseplay');
             $api.fixIos7Bar(nav);
             navHeight = $api.offset(nav).h;
-            // buybuttonHeight = $api.offset(buybutton).h;
+            buybuttonHeight = $api.offset(buybutton).h;
         }
 
         function skipContent() {
@@ -103,13 +140,32 @@
                     x: 0,
                     y: navHeight,
                     w: 'auto',
-                    h: api.winHeight - navHeight
+                    h: api.winHeight - navHeight - buybuttonHeight
                 },
                 pageParam: {
                     current: 1,
                     navHeight: navHeight
                 }
             });
+        }
+
+        function buyCourse(){
+          api.openWin({
+              name: 'buy_course',
+              url: './buy_course.html',
+              vScrollBarEnabled: false,
+              bounces: false,
+              rect: {
+                  x: 0,
+                  y: 0,
+                  w: 'auto',
+                  h: api.winHeight
+              },
+              pageParam: {
+                  current: 1,
+                  navHeight: navHeight
+              }
+          });
         }
 
         function actionMenu() {
