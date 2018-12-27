@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>course detail</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            font-family: helvetica;
+            background-color: #F4F7F2;
+        }
+        .nav {
+            width: 100%;
+            height: 43px;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #CCCCCC;
+        }
+
+        .nav .arrow {
+            float: left;
+            width: 15%;
+            height: 43px;
+            background-image: url(../image/head/arrow.png);
+            background-size: 11px 20px;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .nav .share {
+            width: 15%;
+            height: 43px;
+            background-image: url(../image/head/share.png);
+            background-size: 19px 3px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            float: right;
+        }
+        .nav .titlecontent{
+            width: 70%;
+            font-size: 20px;
+            margin: 0 auto;
+            float:left;
+            text-align: center;
+            margin-top: 11px;
+        }
+        .addaddress{
+          background-color: #FFFFFF;
+          width: 100%;
+          margin-top: 10px;
+          height: 50px;
+          display: inline-block;
+        }
+        .addaddressinner {
+          height: 20px;
+          font-size: 18px;
+          color: #444;
+          margin-top: 15px;
+          margin-left: 20px;
+          margin-right: 10px;
+          padding-left: 20px;
+
+          background-image: url(../image/more.png);
+          background-size: 20px 20px;
+          background-repeat: no-repeat;
+          background-position: top left;
+        }
+        .profile{
+          background-color: #FFFFFF;
+          margin-top: 10px;
+          display: inline-block;
+        }
+        .address{
+          float: left;
+          height: 60px;
+          padding-top: 10px;
+          background-color: #FFFFFF;
+          padding-left: 20px;
+          width: 70%;
+        }
+        .addressinner{
+          height: 60px;
+        }
+        .selectradio{
+          float: right;
+          width: 20%;
+          display: inline-block;
+        }
+        .selectradioinner{
+          margin-top: 20px;
+          height: 30px;
+          padding-left: 20px;
+        }
+        input[type="radio"] + label::before{
+          content: "\a0";
+          display: inline-block;
+          vertical-align: middle;
+          font-size: 18px;
+          width: 1em;
+          height: 1em;
+          margin-right: .4em;
+          border-radius: 50%;
+          border: 1px solid #1aa8fc;
+          text-align: .15em;
+          line-height: 1;
+        }
+        input[type="radio"]:checked + label::before{
+          background-color: #1aa8fc;
+          background-clip: content-box;
+          padding: .1em;
+        }
+        input[type="radio"]{
+          position: absolute;
+          clip: rect(0,0,0,0);
+        }
+    </style>
+</head>
+
+<body>
+  <div style="width:100%;background-color:#F4F7F2">
+      <div class="nav" id="nav">
+          <div class="arrow" tapmode onclick="api.closeWin();"></div>
+          <div class="titlecontent">选择收货地址</div>
+          <div class="share" tapmode onclick="actionMenu()"></div>
+      </div>
+      <div class="addaddress" onclick="addAddress()">
+        <div class="addaddressinner">新增收货地址</div>
+      </div>
+      <div class="profile" onclick="selectAddress(1)">
+        <div class="address">
+          <div class="addressinner">胡绪怀 13883136551 重庆市 重庆市 渝北区 逸静丰豪4栋5-2</div>
+        </div>
+        <div class="selectradio">
+          <div class="selectradioinner">
+            <input name="address" id="address1" type="radio"></input>
+            <label></label>
+          </div>
+        </div>
+      </div>
+      <div class="profile" onclick="selectPayMethod(2)">
+        <div class="address">
+          <div class="addressinner">胡绪怀 13883136551 重庆市 重庆市 渝北区 逸静丰豪4栋5-2</div>
+        </div>
+        <div class="selectradio">
+          <div class="selectradioinner">
+            <input name="address" id="address2" type="radio"></input>
+            <label></label>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/doT.min.js"></script>
+<script type="text/javascript" src="../script/APICloud-rest.js"></script>
+<script type="text/javascript">
+    var content,dot,max,min,current,navHeight,videoPlayer;;
+    apiready = function() {
+      // fnInit();
+      // fnGetData(current,max);
+      // openOne(1);
+    };
+
+
+    function selectAddress(index){
+
+      if (index == 1) {
+        $api.removeAttr($api.byId('address2'),'checked');
+        $api.attr($api.byId('address1'),'checked',true);
+      }else {
+        $api.removeAttr($api.byId('address1'),'checked');
+        $api.attr($api.byId('address2'),'checked',true);
+      }
+    }
+
+    function addAddress(){
+
+      api.openWin({
+          name: 'add_address',
+          url: './add_address.html',
+          vScrollBarEnabled: false,
+          bounces: false,
+          rect: {
+              x: 0,
+              y: 0,
+              w: 'auto',
+              h: api.winHeight
+          },
+          pageParam: {
+              current: 1,
+              navHeight: navHeight
+          }
+      });
+
+    }
+
+</script>
+
+</html>

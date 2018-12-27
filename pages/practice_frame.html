@@ -284,13 +284,26 @@
       -webkit-box-flex: 1;
       box-sizing: border-box;
     }
-    .contenticon {
+    .contenticonmore {
         position: relative;
         left: 15px;
-        width: 15px;
-        height: 15px;
-        background: url(../image/shouye/in.png);
-        background-size: 13px 13px;
+        width: 18px;
+        height: 18px;
+        background: url(../image/more1.png);
+        background-size: 18px 18px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        display: inline-block;;
+        transition: 200ms;
+        top:3px;
+    }
+    .contenticonless {
+        position: relative;
+        left: 15px;
+        width: 18px;
+        height: 18px;
+        background: url(../image/less.png);
+        background-size: 18px 18px;
         background-position: center center;
         background-repeat: no-repeat;
         display: inline-block;;
@@ -379,7 +392,7 @@
   <script id="template" type="text/template">
   {{~ it:data }}
   <div class="contentblock" >
-    <div class="contenticon"  tapmode onclick="initSubContent('{{= data.id }}')"></div>
+    <div class="contenticonmore" id="contenticon" dataid="more" tapmode onclick="initSubContent('{{= data.id }}')"></div>
     <div class="contenttitle"  tapmode onclick="initSubContent('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
       <div class="photo" tapmode onclick="fnOpenTestPaper('{{= data.id }}')">
@@ -395,7 +408,7 @@
   </script>
   <script id="subTemplate" type="text/template">
   {{~ it:data }}
-  <div class="contentblock" >
+  <div id="subcontent{{= data.id }}" class="contentblock" >
     <div class="contenttitle"  tapmode onclick="fnOpenTestPaper('{{= data.id }}')">{{=data.name}}</div>
     <div class="contentbar">
       <div class="photo" tapmode onclick="fnOpenTestPaper('{{= data.id }}')">
@@ -541,6 +554,19 @@
           subDot = doT.template(subTemplate.innerHTML);
 
           getSubContent(id);
+
+          var icon = $api.byId('contenticon');
+          var mark = $api.attr(icon,'dataid');
+          if (mark == 'more') {
+            $api.removeCls(icon, 'contenticonmore');
+            $api.addCls(icon, 'contenticonless');
+          }else {
+            $api.removeCls(icon, 'contenticonless');
+            $api.addCls(icon, 'contenticonmore');
+
+            // $api.byId('subcontent'+id);
+
+          }
         }
         // 获取subContent
         function getSubContent(id) {
